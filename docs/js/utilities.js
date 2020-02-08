@@ -55,4 +55,26 @@ async function getDataFor(data) {
   }
 }
 
-export { getDataFor };
+async function showDataFor(identifier, parentElement, childElementType = 'li') {
+  await getDataFor(identifier).then(
+    data => {
+      if (data.length > 1) {
+        for (let i = 0; i < data.length; i++) {
+          renderElements(parentElement, childElementType, data[i].mission_name)
+        }
+      } else {
+        renderElements(parentElement, childElementType, data.mission_name);
+      }
+    }
+  )
+}
+
+function renderElements(parentElement, childElementType, dataToShow) {
+  let newNode = document.createElement(childElementType);
+  let newContent = document.createTextNode(dataToShow);
+  newNode.appendChild(newContent);
+  let target = document.querySelector(parentElement);
+  target.appendChild(newNode);
+}
+
+export { getDataFor, showDataFor, renderElements };
