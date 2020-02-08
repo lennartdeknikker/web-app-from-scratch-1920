@@ -4,26 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <title>SpaceX Launches</title>
   </head>
   <body>
-
-    <h1>SpaceX Launches</h1>
-
-    <article class="next-launch">
+    <header>
+      <img src="./img/spacex_logo_white.png" alt="SpaceX logo" />
+      <h1>LAUNCH MANIFEST</h1>
+      <nav>
+        <ul>
+          <li class="active"><a href="#"><span>UPCOMING LAUNCHES</span></a></li>
+          <li><a href="#">PAST LAUNCHES</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="banner">
+      <div class="banner-background">sdf</div>
+      <blockquote>
+        Our launch manifest is populated by a diverse customer base, including
+        space station resupply missions, commercial satellite launch missions,
+        and US government science and national security missions.
+      </blockquote>
+    </div>
+    <section class="next-launch">
       <h2>Next Launch</h2>
-    </article>
+    </section>
 
-    <article class="latest-launch">
+    <section class="latest-launch">
       <h2>Latest Launch</h2>
-    </article>
+    </section>
 
     <h2>Upcoming Launches</h2>
-    <ul class="upcoming-launches"></ul>
+    <ol class="upcoming-launches"></ol>
 
     <h2>Past Launches</h2>
-    <ul class="past-launches"></ul>
-    
+    <ol class="past-launches"></ol>
+
     <footer>
       <small>
         Data is obtained from the SpaceX API. Check it out at

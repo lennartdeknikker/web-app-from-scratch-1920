@@ -1,3 +1,4 @@
+// FUNCTION TO OBTAIN DATA FROM THE SPACEX API
 async function getDataFor(data) {
   // endpoint and request header configuration
   const endpoint = 'https://api.spacexdata.com/v3/';
@@ -55,6 +56,7 @@ async function getDataFor(data) {
   }
 }
 
+// FUNCTION TO OBTAIN DATA & ADD THAT TO THE DOM
 async function showDataFor(identifier, parentElement, childElementType = 'li') {
   await getDataFor(identifier).then(
     data => {
@@ -69,6 +71,7 @@ async function showDataFor(identifier, parentElement, childElementType = 'li') {
   )
 }
 
+// FUNCTION TO RENDER DOM ELEMENTS FOR GIVEN DATA
 function renderElements(parentElement, childElementType, dataToShow) {
   let newNode = document.createElement(childElementType);
   let newContent = document.createTextNode(dataToShow);
@@ -77,4 +80,14 @@ function renderElements(parentElement, childElementType, dataToShow) {
   target.appendChild(newNode);
 }
 
-export { getDataFor, showDataFor, renderElements };
+async function renderBanner() {
+  await getDataFor('launches/latest').then(
+    data => {
+      document.querySelector('.banner-background').style = `background: url('${data.links.flickr_images[0]}'); background-size: cover; background-position: center bottom;`;
+      document.querySelector('blockquote').style = 'color: white;';
+      console.log(data.links.flickr_images[0]);
+    }
+  )
+}
+
+export { getDataFor, showDataFor, renderElements, renderBanner };
