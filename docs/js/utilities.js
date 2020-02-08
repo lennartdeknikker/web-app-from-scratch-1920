@@ -83,8 +83,8 @@ function renderElements(parentElement, childElementType, dataToShow) {
 async function renderBanner() {
   await getDataFor('launches/latest').then(
     data => {
-      document.querySelector('.banner-background').style = `background: url('${data.links.flickr_images[0]}'); background-size: cover; background-position: center bottom;`;
-      document.querySelector('blockquote').style = 'color: white;';
+      document.querySelector('.banner-background').style = `background:center bottom / cover no-repeat url('${data.links.flickr_images[0]}');`;
+      document.querySelector('blockquote').style = 'color: white; text-shadow: 1px 1px 10px black;';
       console.log(data.links.flickr_images[0]);
     }
   )
