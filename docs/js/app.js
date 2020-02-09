@@ -149,7 +149,12 @@ function timeBetweenDates(toDate) {
 }
 }
 
-document.querySelector('#button-past-launches').addEventListener('click', function() {addToShowcase('latest')})
-document.querySelector('#button-upcoming-launches').addEventListener('click', function() {addToShowcase('next')})
+function makeActive(selector) {
+  document.querySelector('.active').classList.remove('active');
+  document.querySelector(selector).classList.add('active');
+}
+
+document.querySelector('#button-past-launches').addEventListener('click', function() {addToShowcase('latest'); makeActive('#button-past-launches')})
+document.querySelector('#button-upcoming-launches').addEventListener('click', function() {addToShowcase('next'); makeActive('#button-upcoming-launches')})
 
 addToShowcase('next')

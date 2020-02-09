@@ -74,7 +74,7 @@ header nav ul li:hover {
   transform: translateY(5px);
 }
 
-header nav ul .active a span {
+header nav ul li .active span {
   border-bottom: 2px solid var(--spacex-blue);
 }
 
