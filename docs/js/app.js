@@ -6,8 +6,10 @@ showDataFor('launches/upcoming', '.upcoming-launches');
 showDataFor('launches/latest', '.latest-launch', 'p');
 showDataFor('launches/past', '.past-launches');
 
-async function addToShowcase() {
-  await getDataFor('launches/next').then(
+let timer;
+
+async function addToShowcase(type) {
+  await getDataFor(`launches/${type}`).then(
     data => {
       const relevantData = {
         imageUrl:  data.links.mission_patch_small,
@@ -19,10 +21,13 @@ async function addToShowcase() {
         details: data.details,
         videoLink: data.links.video_link
       }
+      // remove old data from DOM
+      document.querySelectorAll('.next-item').forEach(item => item.remove());
 
       // add patch image
       let imageElement = document.createElement('img');
       imageElement.src = relevantData.imageUrl;
+      imageElement.classList.add('next-item');
       let target = document.querySelector('.showcase-image-container');
       target.appendChild(imageElement);
 
@@ -49,6 +54,7 @@ async function addToShowcase() {
         let newContent = document.createTextNode(item.value);
         newNode.appendChild(newSpan);
         newNode.appendChild(newContent);
+        newNode.classList.add('next-item');
 
         let target = document.querySelector('.showcase-titles-container');
         target.appendChild(newNode);
@@ -58,6 +64,8 @@ async function addToShowcase() {
       let detailsElement = document.createElement('p');
       let detailsText = document.createTextNode(relevantData.details);
       detailsElement.appendChild(detailsText);
+      detailsElement.classList.add('next-item')
+
       target = document.querySelector('.showcase-details-container');
       target.appendChild(detailsElement);
 
@@ -68,7 +76,7 @@ async function addToShowcase() {
         ${relevantData.launchDate.getHours()}:${relevantData.launchDate.getMinutes()}`
       }
       let launchDateElement = document.createElement('p');
-      launchDateElement.classList.add('showcase-launchdate-date')
+      launchDateElement.classList.add('showcase-launchdate-date', 'next-item')
 
       let launchDateHead = document.createElement('span');
       let launchDateHeadText = document.createTextNode(launchDate.name.toUpperCase());
@@ -91,19 +99,21 @@ async function addToShowcase() {
 
       videoLink.appendChild(icon)
       videoLink.appendChild(videoLinkText);
-      videoLink.classList.add('video-link')
+      videoLink.classList.add('video-link', 'next-item')
       videoLink.href = relevantData.videoLink
 
       target = document.querySelector('.showcase-details-container');
       target.appendChild(videoLink);
       
+      clearInterval(timer);
       startCountdown(relevantData.launchDate);
     }
   )
 }
 
 function startCountdown(compareDate) {
-let timer = setInterval(function() {
+
+timer = setInterval(function() {
   timeBetweenDates(compareDate);
 }, 1000);
 
@@ -113,7 +123,11 @@ function timeBetweenDates(toDate) {
   let difference = dateEntered.getTime() - now.getTime();
 
   if (difference <= 0) {
-
+    
+    document.querySelector('.launch-days').innerHTML = '';
+    document.querySelector('.launch-hours').innerHTML = '';
+    document.querySelector('.launch-minutes').innerHTML = '';
+    document.querySelector('.launch-seconds').innerHTML = '';
     clearInterval(timer);
   
   } else {
@@ -127,12 +141,15 @@ function timeBetweenDates(toDate) {
     minutes %= 60;
     seconds %= 60;
 
-    document.querySelector('.launch-days').innerHTML = days + ' days, '
-    document.querySelector('.launch-hours').innerHTML = hours + ' hours, '
-    document.querySelector('.launch-minutes').innerHTML = minutes + ' minutes, '
-    document.querySelector('.launch-seconds').innerHTML = seconds + ' seconds '
+    document.querySelector('.launch-days').innerHTML = days + ' days, ';
+    document.querySelector('.launch-hours').innerHTML = hours + ' hours, ';
+    document.querySelector('.launch-minutes').innerHTML = minutes + ' minutes, ';
+    document.querySelector('.launch-seconds').innerHTML = seconds + ' seconds ';
   }
 }
 }
 
-addToShowcase()
+document.querySelector('#button-past-launches').addEventListener('click', function() {addToShowcase('latest')})
+document.querySelector('#button-upcoming-launches').addEventListener('click', function() {addToShowcase('next')})
+
+addToShowcase('next')
