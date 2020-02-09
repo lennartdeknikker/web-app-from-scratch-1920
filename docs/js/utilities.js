@@ -80,11 +80,12 @@ function renderElements(parentElement, childElementType, dataToShow) {
   target.appendChild(newNode);
 }
 
+//function to obtain the banner image from the latest launch data.
 async function renderBanner() {
   await getDataFor('launches/latest').then(
     data => {
       document.querySelector('.banner-background').style = `background:center bottom / cover no-repeat url('${data.links.flickr_images[0]}');`;
-      document.querySelector('blockquote').style = 'color: white; text-shadow: 1px 1px 10px black;';
+      document.querySelector('blockquote').style = 'color: white; text-shadow: 1px 1px 10px black; backdrop-filter: brightness(50%);';
       console.log(data.links.flickr_images[0]);
     }
   )

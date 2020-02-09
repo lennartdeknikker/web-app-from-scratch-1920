@@ -15,7 +15,6 @@ async function addToShowcase() {
         flightNumber: data.flight_number,
         rocketTitle: data.rocket.rocket_name,
         launchSite: data.launch_site.site_name,
-        launchSiteLong: data.launch_site.site_name_long,
         launchDate: new Date(data.launch_date_unix * 1000),
         details: data.details,
         videoLink: data.links.video_link
@@ -29,16 +28,16 @@ async function addToShowcase() {
 
       // add short info statements
       const shortInfo = [{
-        name: `Mission Nr. ${relevantData.flightNumber}: `,
-        value: relevantData.missionTitle
+        name: 'Mission',
+        value: `Nr. ${relevantData.flightNumber}, ${relevantData.missionTitle}`
       },
       {
-        name: 'Rocket: ',
+        name: 'Rocket',
         value: relevantData.rocketTitle
       },
       {
-        name: 'Launch Site: ',
-        value: `${relevantData.launchSiteLong}(${relevantData.launchSite})`
+        name: 'Launch Site',
+        value: relevantData.launchSite
       }]
       for (const item of shortInfo) {
         let newSpan = document.createElement('span');
@@ -64,11 +63,12 @@ async function addToShowcase() {
 
       // add launch date
       let launchDate = {
-        name: 'Launch date: ',
+        name: 'Launch date',
         value: `${relevantData.launchDate.getDate()}/${String(relevantData.launchDate.getMonth()+1).padStart(2, '0')}/${relevantData.launchDate.getFullYear()} 
         ${relevantData.launchDate.getHours()}:${relevantData.launchDate.getMinutes()}`
       }
       let launchDateElement = document.createElement('p');
+      launchDateElement.classList.add('showcase-launchdate-date')
 
       let launchDateHead = document.createElement('span');
       let launchDateHeadText = document.createTextNode(launchDate.name.toUpperCase());
@@ -129,7 +129,7 @@ function timeBetweenDates(toDate) {
 
     document.querySelector('.launch-days').innerHTML = days + ' days, '
     document.querySelector('.launch-hours').innerHTML = hours + ' hours, '
-    document.querySelector('.launch-minutes').innerHTML = minutes + ' minutes and '
+    document.querySelector('.launch-minutes').innerHTML = minutes + ' minutes, '
     document.querySelector('.launch-seconds').innerHTML = seconds + ' seconds '
   }
 }
