@@ -67,6 +67,11 @@ header nav ul li {
   max-width: calc(var(--max-width) / 2);
   min-width: 28.8rem;
   border-right: 1px dashed var(--spacex-silver);
+  transition: transform 0.5s ease;
+}
+
+header nav ul li:hover {
+  transform: translateY(5px);
 }
 
 header nav ul .active a span {
@@ -103,12 +108,14 @@ blockquote {
   text-align: center;
   font-size: 1.3rem;
   margin: 0;
+  position: relative;
+  z-index: -1;
 }
 
 .banner-background {
   height: 70%;
   width: 100%;
-  z-index: -1;
+  z-index: -2;
   position: absolute;
 }
 
@@ -152,6 +159,7 @@ section h2 {
   display: flex;
   min-height: 25vh;
   width: 9rem;
+  align-items: center;
 }
 
 .showcase-image-container img {
@@ -242,10 +250,6 @@ p {
 
   .showcase-image-titles-container {
     width: 100%;
-  }
-
-  .showcase-image-container {
-    align-items: center;
   }
 
   .showcase-launchdate-container {
