@@ -1,6 +1,6 @@
-import { showDataFor, renderBanner, getDataFor, renderElements } from './utilities.js'
+import { showDataFor, renderBannerFor, getDataFor, renderElements } from './utilities.js'
 
-renderBanner();
+renderBannerFor('latest');
 
 showDataFor('launches/upcoming', '.upcoming-launches');
 showDataFor('launches/latest', '.latest-launch', 'p');
@@ -9,6 +9,14 @@ showDataFor('launches/past', '.past-launches');
 let timer;
 
 async function addToShowcase(type) {
+
+  const capitalize = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+
+  let newTitle = `${capitalize(type)} Launch`;
+  document.querySelector('.showcase-title').innerHTML = newTitle;
+
   await getDataFor(`launches/${type}`).then(
     data => {
       const relevantData = {
