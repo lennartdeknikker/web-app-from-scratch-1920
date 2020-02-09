@@ -29,7 +29,7 @@ header {
 }
 
 .home-link {
-  min-width: 15rem;
+  min-width: 12rem;
 }
 
 header img {
@@ -65,7 +65,7 @@ header nav ul li {
   background-color: var(--spacex-white);
   width: 40%;
   max-width: calc(var(--max-width) / 2);
-  min-width: 28.8rem;
+  min-width: 12rem;
   border-right: 1px dashed var(--spacex-silver);
   transition: transform 0.5s ease;
 }
@@ -153,6 +153,7 @@ section h2 {
 
 .showcase-image-titles-container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .showcase-image-container {
