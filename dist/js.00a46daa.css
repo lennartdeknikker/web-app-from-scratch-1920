@@ -9,6 +9,8 @@
 
   --max-width: 80rem;
   --line-height: 1.4rem;
+
+  --banner-background: url("/missions-header.a33b9f7c.jpg");
 }
 
 body {
@@ -110,6 +112,9 @@ blockquote {
   margin: 0;
   position: relative;
   z-index: -1;
+  color: white;
+  text-shadow: 1px 1px 10px black;
+  backdrop-filter: brightness(50%);
 }
 
 .banner-background {
@@ -117,6 +122,7 @@ blockquote {
   width: 100%;
   z-index: -2;
   position: absolute;
+  background: center bottom / cover no-repeat var(--banner-background);
 }
 
 section h2 {
@@ -274,3 +280,6 @@ p {
     border-left: 1px dashed var(--spacex-silver);
   }
 }
+
+
+/*# sourceMappingURL=/js.00a46daa.css.map */
