@@ -162,7 +162,16 @@ function makeActive(selector) {
   document.querySelector(selector).classList.add('active');
 }
 
-document.querySelector('#button-past-launches').addEventListener('click', function() {addToShowcase('latest'); makeActive('#button-past-launches')})
-document.querySelector('#button-upcoming-launches').addEventListener('click', function() {addToShowcase('next'); makeActive('#button-upcoming-launches')})
+// document.querySelector('#button-past-launches').addEventListener('click', function() {addToShowcase('latest'); makeActive('#button-past-launches')})
+// document.querySelector('#button-upcoming-launches').addEventListener('click', function() {addToShowcase('next'); makeActive('#button-upcoming-launches')})
+
+routie({
+	'/next': function() {
+    addToShowcase('next'); makeActive('#button-upcoming-launches')
+	},
+	'/latest': function() {
+    addToShowcase('latest'); makeActive('#button-past-launches')
+	}
+});
 
 addToShowcase('next')
