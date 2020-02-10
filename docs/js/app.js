@@ -1,14 +1,4 @@
-import "babel-polyfill";
-import "../styles.css";
-
-import { showDataFor, renderBannerFor, getDataFor } from './utils.js'
-import { Router } from './router.js'
-
-const router = new Router();
-router.get('/about-me', function(req){
-  console.log(req.path);
-})
-router.init();
+import { showDataFor, renderBannerFor, getDataFor, renderElements } from './utilities.js'
 
 renderBannerFor('latest');
 

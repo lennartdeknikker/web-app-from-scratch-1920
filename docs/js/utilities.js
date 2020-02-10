@@ -84,7 +84,9 @@ function renderElements(parentElement, childElementType, dataToShow) {
 async function renderBannerFor(selector) {
   await getDataFor(`launches/${selector}`).then(
     data => {
-      document.documentElement.style.setProperty('--banner-background', `url('${data.links.flickr_images[0]}')`)
+      document.querySelector('.banner-background').style = `background:center bottom / cover no-repeat url('${data.links.flickr_images[0]}');`;
+      document.querySelector('blockquote').style = 'color: white; text-shadow: 1px 1px 10px black; backdrop-filter: brightness(50%);';
+      console.log(data.links.flickr_images[0]);
     }
   )
 }
