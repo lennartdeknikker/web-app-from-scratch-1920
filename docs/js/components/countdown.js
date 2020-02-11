@@ -5,11 +5,6 @@ const Countdown = {
     this.startCountdown(launchDate);
   },
   startCountdown(compareDate) {
-    timeBetweenDates(compareDate);
-    this.timer = setInterval(() => {
-      timeBetweenDates(compareDate);
-    }, 1000);
-
     function timeBetweenDates(toDate) {
       const dateEntered = toDate;
       const now = new Date();
@@ -37,6 +32,11 @@ const Countdown = {
         document.querySelector('.launch-seconds').innerText = `${seconds} seconds `;
       }
     }
+
+    timeBetweenDates(compareDate);
+    this.timer = setInterval(() => {
+      timeBetweenDates(compareDate);
+    }, 1000);
   },
 };
 

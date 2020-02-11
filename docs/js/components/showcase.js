@@ -32,9 +32,9 @@ const Showcase = {
     Utilities.appendElement('.showcase-image-container', newImage);
   },
   addShortInfo(info) {
-    for (const item of info) {
-      const newSpan = Utilities.createNewElement('span', 'info-type', item.name.toUpperCase());
-      const newLi = Utilities.createNewElement('li', 'dynamic-content-showcase', item.value, newSpan);
+    for (let i = 0; i < info.length; i += 1) {
+      const newSpan = Utilities.createNewElement('span', 'info-type', info[i].name.toUpperCase());
+      const newLi = Utilities.createNewElement('li', 'dynamic-content-showcase', info[i].value, newSpan);
       Utilities.appendElement('.showcase-titles-container', newLi);
     }
   },
@@ -58,11 +58,11 @@ const Showcase = {
     Utilities.appendElement('.showcase-launchdate-date', newLaunchDate);
   },
   normalizeLaunchDate(date) {
-    return `${date.getDate()}/${addPad(date.getMonth() + 1)}/${addPad(date.getFullYear())} 
-  ${date.getHours()}:${addPad(date.getMinutes())}`;
     function addPad(value) {
       return String(value).padStart(2, '0');
     }
+    return `${date.getDate()}/${addPad(date.getMonth() + 1)}/${addPad(date.getFullYear())} 
+  ${date.getHours()}:${addPad(date.getMinutes())}`;
   },
 };
 

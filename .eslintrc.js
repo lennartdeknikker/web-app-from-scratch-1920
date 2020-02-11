@@ -13,6 +13,8 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
-        "no-console": "off"
+        "no-console": "off",
+        "func-names": ["error", "never"],
+        "import/extensions": ["error", "always"]
     }
 };
