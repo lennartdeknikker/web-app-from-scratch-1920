@@ -11,6 +11,9 @@ renderElements: function (parentElement, childElementType, dataToShow) {
 makeButtonActive: function (selector) {
   document.querySelector('.active').classList.remove('active');
   document.querySelector(selector).classList.add('active');
+},
+capitalize: (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1)
 }
 }
 
