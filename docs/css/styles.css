@@ -9,11 +9,14 @@
 
   --max-width: 80rem;
   --line-height: 1.4rem;
+
+  --banner-background: transparent;
 }
 
 body {
   margin: 0;
   font-family: var(--main-font);
+  background: center top / contain no-repeat url("../img/missions-header.jpg");
 }
 
 header {
@@ -25,7 +28,7 @@ header {
   justify-content: center;
   flex-wrap: wrap;
   padding: 1.8rem 0 0;
-  min-height: 15vh;
+  min-height: 13vh;
 }
 
 .home-link {
@@ -60,7 +63,6 @@ header nav ul {
 }
 
 header nav ul li {
-  padding: 1rem 0;
   border: 1px solid white;
   background-color: var(--spacex-white);
   width: 40%;
@@ -98,6 +100,7 @@ header nav ul li a {
   text-decoration: none;
   color: var(--spacex-black);
   font-size: 0.8rem;
+  padding: 1rem 0;
 }
 
 blockquote {
@@ -110,6 +113,9 @@ blockquote {
   margin: 0;
   position: relative;
   z-index: -1;
+  color: white;
+  text-shadow: 1px 1px 10px black;
+  backdrop-filter: brightness(50%);
 }
 
 .banner-background {
@@ -117,6 +123,7 @@ blockquote {
   width: 100%;
   z-index: -2;
   position: absolute;
+  background: center bottom / cover no-repeat var(--banner-background);
 }
 
 section h2 {
@@ -134,7 +141,7 @@ section h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 46vh;
+  min-height: 50vh;
   line-height: var(--line-height);
 }
 

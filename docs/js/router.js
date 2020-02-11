@@ -1,3 +1,6 @@
+import { Content } from './content.js';
+import { Utilities } from './utilities.js'
+
 /*!
  * routie - a tiny hash router
  * v0.3.2
@@ -5,6 +8,8 @@
  * copyright Greg Allen 2016
  * MIT License
 */
+const Router = {
+init: function() {
 var Routie = function(w, isModule) {
 
   var routes = [];
@@ -208,11 +213,22 @@ var Routie = function(w, isModule) {
   } else {
     w[reference] = routie;
   }
-   
 };
 
-if (typeof module == 'undefined'){
-  Routie(window);
-} else {
-  module.exports = Routie(window,true);
+Routie(window);
+
+routie({
+	'/next': function() {
+    Utilities.makeButtonActive('#button-upcoming-launches');
+    Content.addToShowcase('next');
+	},
+	'/latest': function() {
+    Utilities.makeButtonActive('#button-past-launches')
+    Content.addToShowcase('latest');
+	}
+});
 }
+
+}
+
+export { Router }
