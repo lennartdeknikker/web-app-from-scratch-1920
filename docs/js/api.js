@@ -1,57 +1,56 @@
+/* eslint-disable prefer-promise-reject-errors */
 const Api = {
-  get: async function (data) {
+  async get(data) {
     const endpoint = 'https://api.spacexdata.com/v3/';
     const requestOptions = {
       method: 'GET',
-      redirect: 'follow'
+      redirect: 'follow',
     };
-    
-    return fetch(`${endpoint + data}`, requestOptions)
-      .then(handleResponse)
-      .then(data => { return data;})
-      .catch(error => console.log(error))
 
     // Error handling as learned from https://css-tricks.com/using-fetch/
-    function handleResponse(response) {
-      let contentType = response.headers.get('content-type')
-      if (contentType.includes('application/json')) {
-        return handleJSONResponse(response)
-      } else if (contentType.includes('text/html')) {
-        return handleTextResponse(response)
-      } else {
-        throw new Error(`Sorry, content-type ${contentType} is not supported.`)
-      }
-    }
 
-    function handleJSONResponse (response) {
+    function handleJSONResponse(response) {
       return response.json()
-      .then(json => {
-        if (response.ok) {
-          return json
-        } else {
-          return Promise.reject(Object.assign({}, json, {
+        .then((json) => {
+          if (response.ok) {
+            return json;
+          }
+          return Promise.reject({
+            ...json,
             status: response.status,
-            statusText: response.statusText
-          }))
-        }
-      })
+            statusText: response.statusText,
+          });
+        });
     }
 
-    function handleTextResponse (response) {
+    function handleTextResponse(response) {
       return response.text()
-      .then(text => {
-        if (response.ok) {
-          return text
-        } else {
+        .then((text) => {
+          if (response.ok) {
+            return text;
+          }
           return Promise.reject({
             status: response.status,
             statusText: response.statusText,
-            err: text
-          })
-        }
-      })
+            err: text,
+          });
+        });
     }
-  }
-}
 
-export { Api };
+    function handleResponse(response) {
+      const contentType = response.headers.get('content-type');
+      if (contentType.includes('application/json')) {
+        return handleJSONResponse(response);
+      } if (contentType.includes('text/html')) {
+        return handleTextResponse(response);
+      }
+      throw new Error(`Sorry, content-type ${contentType} is not supported.`);
+    }
+
+    return fetch(`${endpoint + data}`, requestOptions)
+      .then(handleResponse)
+      .catch((error) => console.log(error));
+  },
+};
+
+export default Api;

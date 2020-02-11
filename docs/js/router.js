@@ -1,9 +1,8 @@
-import { Routes } from './routes.js'
+import Routes from './routes.js';
 
 const Router = {
-init: function() {
-
-  /*!
+  init() {
+    /*!
   * routie - a tiny hash router
   * v0.3.2
   * http://projects.jga.me/routie
@@ -11,215 +10,210 @@ init: function() {
   * MIT License
   */
 
-  var Routie = function(w, isModule) {
+    const Routie = function (w, isModule) {
+      let routes = [];
+      let map = {};
+      const reference = 'routie';
+      const oldReference = w[reference];
 
-    var routes = [];
-    var map = {};
-    var reference = "routie";
-    var oldReference = w[reference];
+      const Route = function (path, name) {
+        this.name = name;
+        this.path = path;
+        this.keys = [];
+        this.fns = [];
+        this.params = {};
+        this.regex = pathToRegexp(this.path, this.keys, false, false);
+      };
 
-    var Route = function(path, name) {
-      this.name = name;
-      this.path = path;
-      this.keys = [];
-      this.fns = [];
-      this.params = {};
-      this.regex = pathToRegexp(this.path, this.keys, false, false);
+      Route.prototype.addHandler = function (fn) {
+        this.fns.push(fn);
+      };
 
-    };
-
-    Route.prototype.addHandler = function(fn) {
-      this.fns.push(fn);
-    };
-
-    Route.prototype.removeHandler = function(fn) {
-      for (var i = 0, c = this.fns.length; i < c; i++) {
-        var f = this.fns[i];
-        if (fn == f) {
-          this.fns.splice(i, 1);
-          return;
+      Route.prototype.removeHandler = function (fn) {
+        for (let i = 0, c = this.fns.length; i < c; i++) {
+          const f = this.fns[i];
+          if (fn === f) {
+            this.fns.splice(i, 1);
+            return;
+          }
         }
-      }
-    };
+      };
 
-    Route.prototype.run = function(params) {
-      for (var i = 0, c = this.fns.length; i < c; i++) {
-        this.fns[i].apply(this, params);
-      }
-    };
-
-    Route.prototype.match = function(path, params){
-      var m = this.regex.exec(path);
-
-      if (!m) return false;
-
-
-      for (var i = 1, len = m.length; i < len; ++i) {
-        var key = this.keys[i - 1];
-
-        var val = ('string' == typeof m[i]) ? decodeURIComponent(m[i]) : m[i];
-
-        if (key) {
-          this.params[key.name] = val;
+      Route.prototype.run = function (params) {
+        for (let i = 0, c = this.fns.length; i < c; i++) {
+          this.fns[i].apply(this, params);
         }
-        params.push(val);
-      }
+      };
 
-      return true;
-    };
+      Route.prototype.match = function (path, params) {
+        const m = this.regex.exec(path);
 
-    Route.prototype.toURL = function(params) {
-      var path = this.path;
-      for (var param in params) {
-        path = path.replace('/:'+param, '/'+params[param]);
-      }
-      path = path.replace(/\/:.*\?/g, '/').replace(/\?/g, '');
-      if (path.indexOf(':') != -1) {
-        throw new Error('missing parameters for url: '+path);
-      }
-      return path;
-    };
+        if (!m) return false;
 
-    var pathToRegexp = function(path, keys, sensitive, strict) {
-      if (path instanceof RegExp) return path;
-      if (path instanceof Array) path = '(' + path.join('|') + ')';
-      path = path
-        .concat(strict ? '' : '/?')
-        .replace(/\/\(/g, '(?:/')
-        .replace(/\+/g, '__plus__')
-        .replace(/(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?/g, function(_, slash, format, key, capture, optional){
-          keys.push({ name: key, optional: !! optional });
-          slash = slash || '';
-          return '' + (optional ? '' : slash) + '(?:' + (optional ? slash : '') + (format || '') + (capture || (format && '([^/.]+?)' || '([^/]+?)')) + ')' + (optional || '');
-        })
-        .replace(/([\/.])/g, '\\$1')
-        .replace(/__plus__/g, '(.+)')
-        .replace(/\*/g, '(.*)');
-      return new RegExp('^' + path + '$', sensitive ? '' : 'i');
-    };
 
-    var addHandler = function(path, fn) {
-      var s = path.split(' ');
-      var name = (s.length == 2) ? s[0] : null;
-      path = (s.length == 2) ? s[1] : s[0];
+        for (let i = 1, len = m.length; i < len; ++i) {
+          const key = this.keys[i - 1];
 
-      if (!map[path]) {
-        map[path] = new Route(path, name);
-        routes.push(map[path]);
-      }
-      map[path].addHandler(fn);
-    };
+          const val = (typeof m[i] === 'string') ? decodeURIComponent(m[i]) : m[i];
 
-    var routie = function(path, fn) {
-      if (typeof fn == 'function') {
-        addHandler(path, fn);
-        routie.reload();
-      } else if (typeof path == 'object') {
-        for (var p in path) {
-          addHandler(p, path[p]);
+          if (key) {
+            this.params[key.name] = val;
+          }
+          params.push(val);
         }
-        routie.reload();
-      } else if (typeof fn === 'undefined') {
-        routie.navigate(path);
-      }
-    };
 
-    routie.lookup = function(name, obj) {
-      for (var i = 0, c = routes.length; i < c; i++) {
-        var route = routes[i];
-        if (route.name == name) {
-          return route.toURL(obj);
+        return true;
+      };
+
+      Route.prototype.toURL = function (params) {
+        let { path } = this;
+        for (const param in params) {
+          path = path.replace(`/:${param}`, `/${params[param]}`);
         }
-      }
-    };
+        path = path.replace(/\/:.*\?/g, '/').replace(/\?/g, '');
+        if (path.indexOf(':') != -1) {
+          throw new Error(`missing parameters for url: ${path}`);
+        }
+        return path;
+      };
 
-    routie.remove = function(path, fn) {
-      var route = map[path];
-      if (!route)
-        return;
-      route.removeHandler(fn);
-    };
+      let pathToRegexp = function (path, keys, sensitive, strict) {
+        if (path instanceof RegExp) return path;
+        if (path instanceof Array) path = `(${path.join('|')})`;
+        path = path
+          .concat(strict ? '' : '/?')
+          .replace(/\/\(/g, '(?:/')
+          .replace(/\+/g, '__plus__')
+          .replace(/(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?/g, (_, slash, format, key, capture, optional) => {
+            keys.push({ name: key, optional: !!optional });
+            slash = slash || '';
+            return `${optional ? '' : slash}(?:${optional ? slash : ''}${format || ''}${capture || (format && '([^/.]+?)' || '([^/]+?)')})${optional || ''}`;
+          })
+          .replace(/([\/.])/g, '\\$1')
+          .replace(/__plus__/g, '(.+)')
+          .replace(/\*/g, '(.*)');
+        return new RegExp(`^${path}$`, sensitive ? '' : 'i');
+      };
 
-    routie.removeAll = function() {
-      map = {};
-      routes = [];
-    };
+      const addHandler = function (path, fn) {
+        const s = path.split(' ');
+        const name = (s.length == 2) ? s[0] : null;
+        path = (s.length == 2) ? s[1] : s[0];
 
-    routie.navigate = function(path, options) {
-      options = options || {};
-      var silent = options.silent || false;
+        if (!map[path]) {
+          map[path] = new Route(path, name);
+          routes.push(map[path]);
+        }
+        map[path].addHandler(fn);
+      };
 
-      if (silent) {
-        removeListener();
-      }
-      setTimeout(function() {
-        window.location.hash = path;
+      var routie = function (path, fn) {
+        if (typeof fn === 'function') {
+          addHandler(path, fn);
+          routie.reload();
+        } else if (typeof path === 'object') {
+          for (const p in path) {
+            addHandler(p, path[p]);
+          }
+          routie.reload();
+        } else if (typeof fn === 'undefined') {
+          routie.navigate(path);
+        }
+      };
+
+      routie.lookup = function (name, obj) {
+        for (let i = 0, c = routes.length; i < c; i++) {
+          const route = routes[i];
+          if (route.name == name) {
+            return route.toURL(obj);
+          }
+        }
+      };
+
+      routie.remove = function (path, fn) {
+        const route = map[path];
+        if (!route) { return; }
+        route.removeHandler(fn);
+      };
+
+      routie.removeAll = function () {
+        map = {};
+        routes = [];
+      };
+
+      routie.navigate = function (path, options) {
+        options = options || {};
+        const silent = options.silent || false;
 
         if (silent) {
-          setTimeout(function() { 
-            addListener();
-          }, 1);
+          removeListener();
         }
+        setTimeout(() => {
+          window.location.hash = path;
 
-      }, 1);
-    };
+          if (silent) {
+            setTimeout(() => {
+              addListener();
+            }, 1);
+          }
+        }, 1);
+      };
 
-    routie.noConflict = function() {
-      w[reference] = oldReference;
-      return routie;
-    };
+      routie.noConflict = function () {
+        w[reference] = oldReference;
+        return routie;
+      };
 
-    var getHash = function() {
-      return window.location.hash.substring(1);
-    };
+      const getHash = function () {
+        return window.location.hash.substring(1);
+      };
 
-    var checkRoute = function(hash, route) {
-      var params = [];
-      if (route.match(hash, params)) {
-        route.run(params);
-        return true;
-      }
-      return false;
-    };
-
-    var hashChanged = routie.reload = function() {
-      var hash = getHash();
-      for (var i = 0, c = routes.length; i < c; i++) {
-        var route = routes[i];
-        if (checkRoute(hash, route)) {
-          return;
+      const checkRoute = function (hash, route) {
+        const params = [];
+        if (route.match(hash, params)) {
+          route.run(params);
+          return true;
         }
-      }
-    };
+        return false;
+      };
 
-    var addListener = function() {
-      if (w.addEventListener) {
-        w.addEventListener('hashchange', hashChanged, false);
-      } else {
-        w.attachEvent('onhashchange', hashChanged);
-      }
-    };
+      const hashChanged = routie.reload = function () {
+        const hash = getHash();
+        for (let i = 0, c = routes.length; i < c; i++) {
+          const route = routes[i];
+          if (checkRoute(hash, route)) {
+            return;
+          }
+        }
+      };
 
-    var removeListener = function() {
-      if (w.removeEventListener) {
-        w.removeEventListener('hashchange', hashChanged);
-      } else {
-        w.detachEvent('onhashchange', hashChanged);
-      }
-    };
-    addListener();
+      var addListener = function () {
+        if (w.addEventListener) {
+          w.addEventListener('hashchange', hashChanged, false);
+        } else {
+          w.attachEvent('onhashchange', hashChanged);
+        }
+      };
 
-    if (isModule){
-      return routie;
-    } else {
+      var removeListener = function () {
+        if (w.removeEventListener) {
+          w.removeEventListener('hashchange', hashChanged);
+        } else {
+          w.detachEvent('onhashchange', hashChanged);
+        }
+      };
+      addListener();
+
+      if (isModule) {
+        return routie;
+      }
       w[reference] = routie;
-    }
-  };
+    };
 
-  Routie(window);
+    Routie(window);
 
-  routie(Routes);
-  }
+    routie(Routes);
+  },
 };
 
-export { Router };
+export default Router;

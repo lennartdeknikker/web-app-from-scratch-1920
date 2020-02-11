@@ -1,16 +1,32 @@
-import { Utilities } from '../utilities.js';
+/* eslint-disable import/extensions */
+import Utilities from '../utilities.js';
 
 const List = {
-  init: function(data, identifier) {
+  init(data, identifier) {
+    this.updateTitle(identifier);
     Utilities.removeAll('.launches-list');
-    document.querySelector('.list-title').innerText = Utilities.capitalize(identifier) + " Launches";
-    let newList = Utilities.createNewElement('ol', 'launches-list')
-    Utilities.appendElement('.list-view', newList)
-    for (let i = 0; i < data.length; i++) {
-      let newLi = Utilities.createNewElement('li', null, data[i].mission_name)
-      Utilities.appendElement('.launches-list', newLi)
+    this.generate(data);
+  },
+  updateTitle(identifier) {
+    document.querySelector('.list-title').innerText = `${Utilities.capitalize(identifier)} Launches`;
+  },
+  generate(data) {
+    const newList = Utilities.createNewElement('ol', 'launches-list');
+    for (let i = 0; i < data.length; i += 1) {
+      const newOl = Utilities.createNewElement('ul', 'launches-list-item-details-list');
+      // eslint-disable-next-line no-restricted-syntax
+      for (const element in data[i].data) {
+        if (data[i].data[element] !== null && data[i].data[element].length > 0) {
+          const newDetailLi = Utilities.createNewElement('li', 'launches-list-item-details-list-item', `${element} ${data[i].data[element]}`);
+          newOl.appendChild(newDetailLi);
+        }
+      }
+      const newLi = Utilities.createNewElement('li', 'launches-list-item');
+      newLi.appendChild(newOl);
+      newList.appendChild(newLi);
     }
-  }
-}
-// createNewElement: function(type, className, text, child) {
-export { List }
+    Utilities.appendElement('.list-view', newList);
+  },
+};
+
+export default List;

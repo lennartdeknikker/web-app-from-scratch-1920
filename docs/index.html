@@ -16,64 +16,65 @@
     ></script>
     <title>SpaceX Launches</title>
   </head>
-  <header>
-    <a class="home-link" href="https://www.spacex.com/">
-      <img src="./img/spacex_logo_white.png" alt="SpaceX logo" />
-    </a>
-    <h1>LAUNCH MANIFEST</h1>
-    <nav>
-      <ul>
-        <li>
-          <a href="#/upcoming" id="button-upcoming-launches" class="active"
-            ><span>UPCOMING LAUNCHES</span></a
-          >
-        </li>
-        <li>
-          <a href="#/past" id="button-past-launches"
-            ><span>PAST LAUNCHES</span></a
-          >
-        </li>
-      </ul>
-    </nav>
-  </header>
   <body>
-    <div class="banner">
-      <div class="banner-background"></div>
-      <blockquote>
-        Our launch manifest is populated by a diverse customer base, including
-        space station resupply missions, commercial satellite launch missions,
-        and US government science and national security missions.
-      </blockquote>
-    </div>
-
-    <section class="showcase">
-      <h2 class="showcase-title"></h2>
-      <div>
-        <div class="showcase-image-titles-container">
-          <ul class="showcase-titles-container"></ul>
-          <div class="showcase-image-container"></div>
-        </div>
-        <div class="showcase-details-container"></div>
-        <div class="showcase-launchdate-container">
-          <p class="showcase-launchdate-date"></p>
-          <p class="showcase-launchdate-countdown">
-            <span class="launch-days"></span>
-            <span class="launch-hours"></span>
-            <span class="launch-minutes"></span>
-            <span class="launch-seconds"></span>
-          </p>
-        </div>
+    <header>
+      <a class="home-link" href="https://www.spacex.com/">
+        <img src="./img/spacex_logo_white.png" alt="SpaceX logo" />
+      </a>
+      <h1>LAUNCH MANIFEST</h1>
+      <nav>
+        <ul>
+          <li>
+            <a href="#/upcoming" id="button-upcoming-launches" class="active"
+              ><span>UPCOMING LAUNCHES</span></a
+            >
+          </li>
+          <li>
+            <a href="#/past" id="button-past-launches"
+              ><span>PAST LAUNCHES</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="banner">
+        <div class="banner-background"></div>
+        <blockquote>
+          Our launch manifest is populated by a diverse customer base, including
+          space station resupply missions, commercial satellite launch missions,
+          and US government science and national security missions.
+        </blockquote>
       </div>
-    </section>
-    <section class="list-view">
-      <h2 class="list-title">Upcoming Launches</h2>
-    </section>
+      <section class="showcase">
+        <h2 class="showcase-title"></h2>
+        <div>
+          <div class="showcase-image-titles-container">
+            <ul class="showcase-titles-container"></ul>
+            <div class="showcase-image-container"></div>
+          </div>
+          <div class="showcase-details-container"></div>
+          <div class="showcase-launchdate-container">
+            <p class="showcase-launchdate-date"></p>
+            <p class="showcase-launchdate-countdown">
+              <span class="launch-days"></span>
+              <span class="launch-hours"></span>
+              <span class="launch-minutes"></span>
+              <span class="launch-seconds"></span>
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="list-view">
+        <h2 class="list-title">Upcoming Launches</h2>
+      </section>
+    </main>
+    <footer>
+      <small>
+        All data is obtained from the
+        <a href="https://docs.spacexdata.com/">SpaceX API</a>.
+      </small>
+    </footer>
     <script type="module" src="js/app.js"></script>
   </body>
-  <footer>
-    <small>
-      Data is obtained from the SpaceX API. Check it out at
-      <a href="https://docs.spacexdata.com/">spaceXdata.com</a>
-    </small>
-  </footer>
 </html>
