@@ -5,7 +5,7 @@ init: function(launchDate) {
   this.startCountdown(launchDate);
 },
 startCountdown: function (compareDate) {
-
+  timeBetweenDates(compareDate);
   this.timer = setInterval(function() {
     timeBetweenDates(compareDate);
   }, 1000);
@@ -17,10 +17,10 @@ startCountdown: function (compareDate) {
   
     if (difference <= 0) {
       
-      document.querySelector('.launch-days').innerHTML = '';
-      document.querySelector('.launch-hours').innerHTML = '';
-      document.querySelector('.launch-minutes').innerHTML = '';
-      document.querySelector('.launch-seconds').innerHTML = '';
+      document.querySelector('.launch-days').innerText = '';
+      document.querySelector('.launch-hours').innerText = '';
+      document.querySelector('.launch-minutes').innerText = '';
+      document.querySelector('.launch-seconds').innerText = '';
       clearInterval(Countdown.timer);
     
     } else {
@@ -34,10 +34,10 @@ startCountdown: function (compareDate) {
       minutes %= 60;
       seconds %= 60;
   
-      document.querySelector('.launch-days').innerHTML = days + ' days, ';
-      document.querySelector('.launch-hours').innerHTML = hours + ' hours, ';
-      document.querySelector('.launch-minutes').innerHTML = minutes + ' minutes, ';
-      document.querySelector('.launch-seconds').innerHTML = seconds + ' seconds ';
+      document.querySelector('.launch-days').innerText = days + ' days, ';
+      document.querySelector('.launch-hours').innerText = hours + ' hours, ';
+      document.querySelector('.launch-minutes').innerText = minutes + ' minutes, ';
+      document.querySelector('.launch-seconds').innerText = seconds + ' seconds ';
     }
   }
   }

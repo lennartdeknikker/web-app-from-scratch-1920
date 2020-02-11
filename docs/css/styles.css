@@ -245,6 +245,10 @@ p {
   margin: 0;
 }
 
+.list-view {
+  background-color: var(--spacex-white);
+}
+
 @media (max-width: 870px) {
   .showcase > div {
     flex-direction: column;
