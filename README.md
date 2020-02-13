@@ -8,7 +8,8 @@ This application provides an overview of all past and upcoming SpaceX Rocket lau
 1. [Installation](#Installation)
 2. [Features](#Features)
 3. [API](#API)
-4. [License](#License)
+4. [Actors and Interactions](#Actors-and-Interactions)
+5. [License](#License)
 
 ## Installation
 To work on this project, 
@@ -42,6 +43,12 @@ In general, the standard cache times are as follows:
 - dragons, rockets, missions, history, company info - 24 hours
 ### More information
 https://docs.spacexdata.com/
+
+## Actors and Interactions
+### Actor diagram
+![Actor diagram](./wiki-assets/diagrams/actor.png)
+### Interaction diagram
+![Interaction diagram](./wiki-assets/diagrams/interaction.png)
 
 ## License
 This project is licensed under the terms of the MIT license.
