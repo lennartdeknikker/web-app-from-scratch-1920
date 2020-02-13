@@ -107,7 +107,7 @@ const Router = {
         map[path].addHandler(fn);
       };
 
-      var routie = function (path, fn) {
+      const routie = function (path, fn) {
         if (typeof fn === 'function') {
           addHandler(path, fn);
           routie.reload();
@@ -122,9 +122,9 @@ const Router = {
       };
 
       routie.lookup = function (name, obj) {
-        for (let i = 0, c = routes.length; i < c; i++) {
+        for (let i = 0, c = routes.length; i < c; i += 1) {
           const route = routes[i];
-          if (route.name == name) {
+          if (route.name === name) {
             return route.toURL(obj);
           }
         }
