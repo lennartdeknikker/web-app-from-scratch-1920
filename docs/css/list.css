@@ -43,6 +43,9 @@
   padding: 1em;
   min-width: 10em;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .launches-list-item-details-list {
@@ -61,4 +64,8 @@
 .details-list-title {
   font-weight: bold;
   color: var(--spacex-blue);
+}
+
+.test {
+  align-self: flex-end;
 }

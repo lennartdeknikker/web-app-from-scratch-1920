@@ -12,17 +12,21 @@ const List = {
   generate(data) {
     const newList = Utilities.createNewElement('ol', 'launches-list');
     for (let i = 0; i < data.length; i += 1) {
-      const newOl = Utilities.createNewElement('ul', 'launches-list-item-details-list');
+      const newUl = Utilities.createNewElement('ul', 'launches-list-item-details-list');
       // eslint-disable-next-line no-restricted-syntax
       for (const element in data[i].data) {
         if (data[i].data[element] !== null && data[i].data[element].length > 0) {
           const newDetailLiTitle = Utilities.createNewElement('span', 'details-list-title', `${Utilities.capitalize(element.replace('_', ' '))}: `);
           const newDetailLi = Utilities.createNewElement('li', 'launches-list-item-details-list-item', data[i].data[element], newDetailLiTitle);
-          newOl.appendChild(newDetailLi);
+          newUl.appendChild(newDetailLi);
         }
       }
+      const newLink = Utilities.createNewElement('img', 'test');
+      newLink.src = data[i].links.Patch;
+      console.log(data[i].links);
       const newLi = Utilities.createNewElement('li', 'launches-list-item');
-      newLi.appendChild(newOl);
+      newLi.appendChild(newUl);
+      newLi.appendChild(newLink);
       newList.appendChild(newLi);
     }
     Utilities.appendElement('.list-view', newList);
