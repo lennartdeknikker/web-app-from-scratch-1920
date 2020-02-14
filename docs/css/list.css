@@ -18,6 +18,7 @@
   align-items: center;
   flex-direction: column;
   padding: 3em 1em;
+  min-width: 18em;
 }
 
 .list-title {
@@ -41,7 +42,7 @@
   margin-bottom: 1em;
   border: 1px dashed var(--spacex-silver);
   padding: 1em;
-  min-width: 10em;
+  min-width: 18em;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -68,4 +69,5 @@
 
 .test {
   align-self: flex-end;
+  width: 100%;
 }
