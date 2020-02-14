@@ -10,13 +10,12 @@
   --max-width: 80rem;
   --line-height: 1.4rem;
 
-  --banner-background: transparent;
+  --banner-background: url("../img/missions-header.jpg");
 }
 
 body {
   margin: 0;
   font-family: var(--main-font);
-  background: center top / contain no-repeat url("../img/missions-header.jpg");
 }
 
 header {
@@ -29,11 +28,12 @@ header {
 }
 
 .header-text-wrapper {
-  height: 6vh;
   width: 100%;
   justify-content: center;
   display: flex;
   min-height: 3em;
+  flex-wrap: wrap;
+  padding: 1em;
 }
 
 .home-link {
@@ -47,6 +47,9 @@ header {
   max-height: 1.5em;
   position: relative;
   bottom: 0.4rem;
+  display: flex;
+  justify-content: center;
+  height: 6vh;
 }
 
 .header-text {
@@ -55,10 +58,17 @@ header {
   font-family: var(--main-font);
   font-weight: normal;
   font-size: 1em;
+  min-width: 20em;
+  width: auto;
+  justify-content: center;
+  height: 6vh;
 }
 
 .header-menu {
   width: 100%;
+  background-color: var(--spacex-silver-light);
+  display: flex;
+  justify-content: center;
 }
 
 .header-menu-list {
@@ -68,16 +78,17 @@ header {
   flex-wrap: wrap;
   justify-content: center;
   margin: 0;
-  background-color: var(--spacex-silver-light);
+  max-width: var(--max-width);
+  width: 100%;
 }
 
 .header-menu-list-item {
   border: 1px solid white;
   background-color: var(--spacex-white);
-  width: 40%;
-  max-width: calc(var(--max-width) / 2);
+  flex: 1;
   min-width: 12rem;
   border-right: 1px dashed var(--spacex-silver);
+  border-bottom: 1px dashed var(--spacex-silver);
   box-sizing: border-box;
   transition: transform 0.5s ease;
 }
@@ -264,17 +275,12 @@ p {
 }
 
 @media (max-width: 870px) {
-  .showcase > div {
+  /* .showcase > div {
     flex-direction: column;
     align-items: center;
-  }
+  } */
 
   .showcase-details-container {
-    min-height: 25vh;
-    width: 100%;
-  }
-
-  .showcase-image-titles-container {
     width: 100%;
   }
 
@@ -293,9 +299,5 @@ p {
     flex-direction: column;
     align-items: flex-start;
     margin: 0;
-  }
-
-  header nav ul li:nth-child(2) {
-    border-left: 1px dashed var(--spacex-silver);
   }
 }
