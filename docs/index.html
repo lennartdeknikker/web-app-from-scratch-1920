@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="icon" type="image/x-icon" href="./favicon.ico" />
     <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/list.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
       rel="stylesheet"
@@ -18,18 +19,24 @@
   </head>
   <body>
     <header>
-      <a class="home-link" href="https://www.spacex.com/">
-        <img src="./img/spacex_logo_white.png" alt="SpaceX logo" />
-      </a>
-      <h1>LAUNCH MANIFEST</h1>
-      <nav>
-        <ul>
-          <li>
+      <div class="header-text-wrapper">
+        <a class="home-link" href="https://www.spacex.com/">
+          <img
+            src="./img/spacex_logo_white.png"
+            alt="SpaceX logo"
+            class="header-logo-image"
+          />
+        </a>
+        <h1 class="header-text">LAUNCH MANIFEST</h1>
+      </div>
+      <nav class="header-menu">
+        <ul class="header-menu-list">
+          <li class="header-menu-list-item">
             <a href="#/upcoming" id="button-upcoming-launches" class="active"
               ><span>UPCOMING LAUNCHES</span></a
             >
           </li>
-          <li>
+          <li class="header-menu-list-item">
             <a href="#/past" id="button-past-launches"
               ><span>PAST LAUNCHES</span></a
             >
@@ -39,12 +46,16 @@
     </header>
     <main>
       <div class="banner">
-        <div class="banner-background"></div>
-        <blockquote>
-          Our launch manifest is populated by a diverse customer base, including
-          space station resupply missions, commercial satellite launch missions,
-          and US government science and national security missions.
-        </blockquote>
+        <div class="banner-background">
+          <div class="banner-filter">
+            <blockquote>
+              Our launch manifest is populated by a diverse customer base,
+              including space station resupply missions, commercial satellite
+              launch missions, and US government science and national security
+              missions.
+            </blockquote>
+          </div>
+        </div>
       </div>
       <section class="showcase">
         <h2 class="showcase-title"></h2>

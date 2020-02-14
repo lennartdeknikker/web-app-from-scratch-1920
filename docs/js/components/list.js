@@ -4,7 +4,6 @@ import Utilities from '../utilities.js';
 const List = {
   init(data, identifier) {
     this.updateTitle(identifier);
-    Utilities.removeAll('.launches-list');
     this.generate(data);
   },
   updateTitle(identifier) {
@@ -17,7 +16,8 @@ const List = {
       // eslint-disable-next-line no-restricted-syntax
       for (const element in data[i].data) {
         if (data[i].data[element] !== null && data[i].data[element].length > 0) {
-          const newDetailLi = Utilities.createNewElement('li', 'launches-list-item-details-list-item', `${element} ${data[i].data[element]}`);
+          const newDetailLiTitle = Utilities.createNewElement('span', 'details-list-title', `${Utilities.capitalize(element.replace('_', ' '))}: `);
+          const newDetailLi = Utilities.createNewElement('li', 'launches-list-item-details-list-item', data[i].data[element], newDetailLiTitle);
           newOl.appendChild(newDetailLi);
         }
       }

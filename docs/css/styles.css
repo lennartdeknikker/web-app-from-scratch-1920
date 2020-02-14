@@ -25,74 +25,73 @@ header {
   color: white;
   display: flex;
   align-items: center;
+  flex-direction: column;
+}
+
+.header-text-wrapper {
+  height: 6vh;
+  width: 100%;
   justify-content: center;
-  flex-wrap: wrap;
-  padding: 1.8rem 0 0;
-  min-height: 13vh;
+  display: flex;
+  min-height: 3em;
 }
 
 .home-link {
+  display: flex;
+  align-items: center;
   min-width: 12rem;
+  height: auto;
 }
 
-header img {
+.header-logo-image {
   max-height: 1.5em;
   position: relative;
   bottom: 0.4rem;
 }
 
-header h1 {
+.header-text {
+  display: flex;
+  align-items: center;
   font-family: var(--main-font);
   font-weight: normal;
   font-size: 1em;
-  margin: 0;
 }
 
-header nav {
+.header-menu {
   width: 100%;
 }
 
-header nav ul {
+.header-menu-list {
   list-style-type: none;
-  padding: 0.2rem 0 0;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 1.8rem 0 0;
+  margin: 0;
   background-color: var(--spacex-silver-light);
 }
 
-header nav ul li {
+.header-menu-list-item {
   border: 1px solid white;
   background-color: var(--spacex-white);
   width: 40%;
   max-width: calc(var(--max-width) / 2);
   min-width: 12rem;
   border-right: 1px dashed var(--spacex-silver);
+  box-sizing: border-box;
   transition: transform 0.5s ease;
 }
 
-header nav ul li:hover {
-  transform: translateY(5px);
-}
-
-header nav ul li .active span {
-  border-bottom: 2px solid var(--spacex-blue);
-}
-
-header nav ul a span {
-  padding-bottom: 0.3rem;
-}
-
-header nav ul li:first-child {
+.header-menu-list-item:first-child {
   border-left: 1px dashed var(--spacex-silver);
 }
 
-header nav ul li:hover {
+.header-menu-list-item:hover {
+  transform: translateY(5px);
   background-color: var(--spacex-silver-light);
 }
 
-header nav ul li a {
+.header-menu-list-item a {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -100,30 +99,49 @@ header nav ul li a {
   text-decoration: none;
   color: var(--spacex-black);
   font-size: 0.8rem;
-  padding: 1rem 0;
+  min-height: 3em;
+  height: 6vh;
 }
 
-blockquote {
-  min-height: 30vh;
-  padding: 1em 16%;
+.header-menu-list-item a span {
+  padding-bottom: 0.3rem;
+}
+
+.header-menu-list-item .active span {
+  border-bottom: 2px solid var(--spacex-blue);
+}
+
+.banner-background {
+  display: flex;
+  width: 100%;
+  z-index: -2;
+  position: relative;
+  background: center bottom / cover no-repeat var(--banner-background);
+}
+
+.banner-filter {
+  display: flex;
+  backdrop-filter: brightness(50%);
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.644));
+  min-height: 38vh;
+  width: 100%;
+  position: relative;
+  z-index: -1;
+  justify-content: center;
+}
+
+.banner blockquote {
   display: flex;
   align-items: center;
   text-align: center;
   font-size: 1.3rem;
   margin: 0;
   position: relative;
-  z-index: -1;
+  z-index: 0;
   color: white;
-  text-shadow: 1px 1px 10px black;
-  backdrop-filter: brightness(50%);
-}
-
-.banner-background {
-  height: 70%;
-  width: 100%;
-  z-index: -2;
-  position: absolute;
-  background: center bottom / cover no-repeat var(--banner-background);
+  max-width: var(--max-width);
+  padding: 1em;
+  box-sizing: border-box;
 }
 
 section h2 {
@@ -135,14 +153,14 @@ section h2 {
 .showcase {
   background-color: var(--spacex-blue);
   color: white;
-  padding: 1.4rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 50vh;
+  height: 50vh;
   line-height: var(--line-height);
+  padding: 1em;
 }
 
 .showcase > div {
@@ -243,10 +261,6 @@ section h2 {
 
 p {
   margin: 0;
-}
-
-.list-view {
-  background-color: var(--spacex-white);
 }
 
 @media (max-width: 870px) {

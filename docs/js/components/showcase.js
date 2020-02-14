@@ -2,8 +2,6 @@ import Utilities from '../utilities.js';
 
 const Showcase = {
   async init(type, data) {
-    Utilities.removeAll('.dynamic-content-showcase');
-
     this.changeTitle(type);
     this.addPatchImage(data.imageUrl);
     this.addDetails(data.details);

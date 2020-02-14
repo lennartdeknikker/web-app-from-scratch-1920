@@ -3,7 +3,8 @@ import Api from './api.js';
 const Data = {
   async banner() {
     const data = await Api.get('launches/latest');
-    return data.links.flickr_images[0];
+    // returns random photo of the last launch.
+    return data.links.flickr_images[Math.floor(Math.random() * data.links.flickr_images.length)];
   },
   async showcase(type) {
     const data = await Api.get(`launches/${type}`);
@@ -29,11 +30,11 @@ const Data = {
           video: element.links.video_link,
         },
         data: {
-          missionTitle: element.mission_name,
-          flightNumber: element.flight_number,
-          rocketTitle: element.rocket.rocket_name,
-          launchSite: element.launch_site.site_name,
-          launchDate: new Date(element.launch_date_unix * 1000),
+          mission_title: element.mission_name,
+          flight_number: element.flight_number,
+          rocket_title: element.rocket.rocket_name,
+          launch_site: element.launch_site.site_name,
+          launch_date: new Date(element.launch_date_unix * 1000),
           details: element.details,
         },
       });
