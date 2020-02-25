@@ -21,6 +21,14 @@ const Utilities = {
   removeAll(selector) {
     document.querySelectorAll(selector).forEach((item) => item.remove());
   },
+  normalizeDate(unixDate) {
+    const date = new Date(unixDate * 1000);
+    function addPad(value) {
+      return String(value).padStart(2, '0');
+    }
+    return `${addPad(date.getDate())}/${addPad(date.getMonth() + 1)}/${addPad(date.getFullYear())} 
+  ${addPad(date.getHours())}:${addPad(date.getMinutes())}`;
+  },
 };
 
 export default Utilities;

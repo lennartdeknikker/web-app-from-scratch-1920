@@ -3,7 +3,7 @@ import Router from './router.js';
 const App = {
   init() {
     Router.init();
-    window.location = '/#/upcoming';
+    if (!window.location.href.includes('#')) window.location = '/#/upcoming';
   },
 };
 

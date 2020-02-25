@@ -41,12 +41,22 @@
   width: 24%;
   margin-bottom: 1em;
   border: 1px dashed var(--spacex-silver);
-  padding: 1em;
   min-width: 18em;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.launch-link {
+  text-decoration: none;
+  color: var(--spacex-black);
+  padding: 1em;
+  height: 100%;
+}
+
+.launch-link:hover {
+  background-color: var(--spacex-silver-light);
 }
 
 .launches-list-item-details-list {

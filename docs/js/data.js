@@ -1,4 +1,6 @@
 import Api from './api.js';
+import Utilities from './utilities.js';
+import detailView from './components/detailview.js';
 
 const Data = {
   async banner() {
@@ -14,7 +16,8 @@ const Data = {
       flightNumber: data.flight_number,
       rocketTitle: data.rocket.rocket_name,
       launchSite: data.launch_site.site_name,
-      launchDate: new Date(data.launch_date_unix * 1000),
+      launchDate: Utilities.normalizeDate(data.launch_date_unix),
+      launchDateRaw: new Date(data.launch_date_unix * 1000),
       details: data.details,
       videoLink: data.links.video_link,
     });
@@ -34,12 +37,15 @@ const Data = {
           flight_number: element.flight_number,
           rocket_title: element.rocket.rocket_name,
           launch_site: element.launch_site.site_name,
-          launch_date: new Date(element.launch_date_unix * 1000),
+          launch_date: Utilities.normalizeDate(element.launch_date_unix),
           details: element.details,
         },
       });
     });
     return parsedData;
+  },
+  async detailView(selector) {
+    return Api.get(`launches/${selector}`);
   },
 };
 export default Data;

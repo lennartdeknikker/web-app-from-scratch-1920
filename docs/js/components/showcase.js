@@ -3,10 +3,10 @@ import Utilities from '../utilities.js';
 const Showcase = {
   async init(type, data) {
     this.changeTitle(type);
-    this.addPatchImage(data.imageUrl);
-    this.addDetails(data.details);
-    this.addVideoLink(data.videoLink);
-    this.addLaunchDate(data.launchDate);
+    // if (data.imageUrl) this.addPatchImage(data.imageUrl);
+    if (data.details) this.addDetails(data.details);
+    if (data.videoLink) this.addVideoLink(data.videoLink);
+    if (data.launchDate) this.addLaunchDate(data.launchDate);
     this.addShortInfo([{
       name: 'Mission',
       value: `Nr. ${data.flightNumber}, ${data.missionTitle}`,
@@ -25,6 +25,7 @@ const Showcase = {
     document.querySelector('.showcase-title').innerText = newTitle;
   },
   addPatchImage(imageUrl) {
+    console.log(imageUrl);
     const newImage = Utilities.createNewElement('img', 'dynamic-content-showcase');
     newImage.src = imageUrl;
     Utilities.appendElement('.showcase-image-container', newImage);
@@ -49,18 +50,11 @@ const Showcase = {
   addLaunchDate(date) {
     const launchDate = {
       name: 'Launch date',
-      value: this.normalizeLaunchDate(date),
+      value: date,
     };
     const newLaunchDateHead = Utilities.createNewElement('span', 'info-type', launchDate.name.toUpperCase());
     const newLaunchDate = Utilities.createNewElement('p', 'showcase-launchdate-date dynamic-content-showcase', launchDate.value, newLaunchDateHead);
     Utilities.appendElement('.showcase-launchdate-date', newLaunchDate);
-  },
-  normalizeLaunchDate(date) {
-    function addPad(value) {
-      return String(value).padStart(2, '0');
-    }
-    return `${date.getDate()}/${addPad(date.getMonth() + 1)}/${addPad(date.getFullYear())} 
-  ${date.getHours()}:${addPad(date.getMinutes())}`;
   },
 };
 
