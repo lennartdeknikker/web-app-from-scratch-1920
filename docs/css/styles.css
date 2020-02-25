@@ -278,12 +278,14 @@ p {
 }
 
 .detailview {
-  width: 100%;
+  width: calc(100% - 2em);
   background-color: var(--spacex-blue);
   color: white;
   padding: 1em;
   animation: 0.3s grow 1;
   margin-bottom: 1em;
+
+  max-width: var(--max-width);
 }
 
 @keyframes grow {
@@ -317,7 +319,8 @@ span[class^="detail-property"] {
   list-style-type: none;
   padding: 0 1em;
   height: 20em;
-  overflow-y: scroll;
+  overflow: scroll;
+  box-sizing: border-box;
 }
 
 .detail-level-1 {
