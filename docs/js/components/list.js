@@ -16,19 +16,33 @@ const List = {
       // eslint-disable-next-line no-restricted-syntax
       for (const element in data[i].data) {
         if (data[i].data[element] !== null) {
-          const newDetailLiTitle = Utilities.createNewElement('span', 'details-list-title', `${Utilities.capitalize(element.replace('_', ' '))}: `);
-          const newDetailLi = Utilities.createNewElement('li', 'launches-list-item-details-list-item', data[i].data[element], newDetailLiTitle);
+          const newDetailLiTitle = Utilities.createNewElement(
+            'span',
+            'details-list-title',
+            `${Utilities.capitalize(element.replace('_', ' '))}: `,
+          );
+          const newDetailLi = Utilities.createNewElement(
+            'li', 'launches-list-item-details-list-item',
+            data[i].data[element],
+            newDetailLiTitle,
+          );
           newUl.appendChild(newDetailLi);
         }
       }
       const newA = Utilities.createNewElement('a', 'launch-link');
       newA.href = `/#/${identifier}/${data[i].data.flight_number}`;
-      const newLi = Utilities.createNewElement('li', `launches-list-item flight-${data[i].data.flight_number}`);
+      const newLi = Utilities.createNewElement(
+        'li',
+        `launches-list-item flight-${data[i].data.flight_number}`,
+      );
       newLi.setAttribute('data-flightnumber', data[i].data.flight_number);
       newA.appendChild(newUl);
       newLi.appendChild(newA);
       if (data[i].links.Patch && identifier === 'past') {
-        const newLink = Utilities.createNewElement('img', 'test');
+        const newLink = Utilities.createNewElement(
+          'img',
+          'test',
+        );
         newLink.src = data[i].links.Patch;
         newLi.appendChild(newLink);
       }

@@ -38,10 +38,18 @@ const Data = {
           rocket_title: element.rocket.rocket_name,
           launch_site: element.launch_site.site_name,
           launch_date: Utilities.normalizeDate(element.launch_date_unix),
-          details: element.details,
         },
       });
     });
+
+    function byFlightNumber(a, b) {
+      if (a.data.flight_number > b.data.flight_number) {
+        return -1;
+      } return 1;
+    }
+
+    parsedData.sort(byFlightNumber);
+
     return parsedData;
   },
   async detailView(selector) {

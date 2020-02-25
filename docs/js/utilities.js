@@ -29,6 +29,9 @@ const Utilities = {
     return `${addPad(date.getDate())}/${addPad(date.getMonth() + 1)}/${addPad(date.getFullYear())} 
   ${addPad(date.getHours())}:${addPad(date.getMinutes())}`;
   },
+  checkForLink(text) {
+    return String(text).includes('http');
+  },
 };
 
 export default Utilities;

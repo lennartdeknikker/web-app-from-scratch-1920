@@ -40,7 +40,6 @@
 .launches-list-item {
   width: 24%;
   margin-bottom: 1em;
-  border: 1px dashed var(--spacex-silver);
   min-width: 18em;
   box-sizing: border-box;
   display: flex;
@@ -51,6 +50,7 @@
 .launch-link {
   text-decoration: none;
   color: var(--spacex-black);
+  border: 1px dashed var(--spacex-silver);
   padding: 1em;
   height: 100%;
 }
@@ -78,6 +78,7 @@
 }
 
 .test {
-  align-self: flex-end;
-  width: 100%;
+  align-self: center;
+  width: 3em;
+  margin: 1em 0;
 }

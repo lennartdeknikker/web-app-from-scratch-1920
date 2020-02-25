@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 import Utilities from '../utilities.js';
 
@@ -35,8 +36,8 @@ const detailView = {
         newDiv,
       );
     } else {
-      document.querySelector('.detailview-title').remove();
-      document.querySelector('.detailview').appendChild(detailviewTitle);
+      if (document.querySelector('.detailview-title')) document.querySelector('.detailview-title').remove();
+      if (document.querySelector('.detailview')) document.querySelector('.detailview').appendChild(detailviewTitle);
     }
 
     detailView.currentPosition = newPosition;
@@ -45,39 +46,66 @@ const detailView = {
   },
   renderHtml(rawData, targetElement) {
     if (document.querySelector('.property-list')) document.querySelector('.property-list').remove();
-    const newUl = Utilities.createNewElement('ul', 'property-list');
-    function addDataToList(data) {
+    console.log(rawData);
+    function addDataToList(data, list, startLevel) {
       for (const property in data) {
         if (data[property] !== null && typeof data[property] !== 'object') {
           const propertySpan = Utilities.createNewElement(
             'span',
-            'detail-property',
+            `detail-property-${startLevel}`,
             `${Utilities.capitalize(property.replace(/_/g, ' '))}: `,
           );
-          const detailSpan = Utilities.createNewElement(
-            'span',
-            'detail-data',
-            `${data[property]}`,
-          );
+          let detailSpan = '';
+          if (Utilities.checkForLink(data[property])) {
+            detailSpan = Utilities.createNewElement(
+              'a',
+              'detail-data detail-data-link',
+              `${data[property]}`,
+            );
+            detailSpan.href = data[property];
+          } else {
+            detailSpan = Utilities.createNewElement(
+              'span',
+              'detail-data',
+              `${data[property]}`,
+            );
+          }
           const newLi = Utilities.createNewElement(
             'li',
-            'detail',
+            `detail-level-${startLevel}`,
             '',
             propertySpan,
           );
 
           newLi.appendChild(detailSpan);
-          newUl.appendChild(newLi);
+          list.appendChild(newLi);
         } else
 
         if (data[property] !== null && typeof data[property] === 'object') {
-          addDataToList(data[property]);
+          const newSubUl = Utilities.createNewElement('ul', `property-list-sub-list-${startLevel + 1}`);
+          const subListTitle = Utilities.createNewElement('li', 'sub-list-title', `${Utilities.capitalize(property.replace(/_/g, ' '))}: `);
+          list.appendChild(subListTitle);
+          addDataToList(data[property], newSubUl, startLevel + 1);
+          list.appendChild(newSubUl);
         }
       }
     }
-    addDataToList(rawData);
+    const newUl = Utilities.createNewElement('ul', 'property-list');
+    addDataToList(rawData, newUl, 1);
 
     Utilities.appendElement(targetElement, newUl);
+
+    function removeEmptyUls() {
+      const sublistTitles = document.querySelectorAll('.sub-list-title');
+      sublistTitles.forEach((title) => {
+        const subList = title.nextSibling;
+        if (subList.childElementCount < 1) {
+          subList.remove();
+          title.remove();
+        }
+      });
+    }
+    removeEmptyUls();
   },
 };
 
