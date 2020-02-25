@@ -24,23 +24,20 @@ const Data = {
   },
   async list(selector) {
     const data = await Api.get(`launches/${selector}`);
-    const parsedData = [];
-    data.forEach((element) => {
-      parsedData.push({
-        links: {
-          photos: element.links.flickr_images,
-          Patch: element.links.mission_patch_small,
-          video: element.links.video_link,
-        },
-        data: {
-          mission_title: element.mission_name,
-          flight_number: element.flight_number,
-          rocket_title: element.rocket.rocket_name,
-          launch_site: element.launch_site.site_name,
-          launch_date: Utilities.normalizeDate(element.launch_date_unix),
-        },
-      });
-    });
+    const parsedData = data.map((element) => ({
+      links: {
+        photos: element.links.flickr_images,
+        Patch: element.links.mission_patch_small,
+        video: element.links.video_link,
+      },
+      data: {
+        mission_title: element.mission_name,
+        flight_number: element.flight_number,
+        rocket_title: element.rocket.rocket_name,
+        launch_site: element.launch_site.site_name,
+        launch_date: Utilities.normalizeDate(element.launch_date_unix),
+      },
+    }));
 
     function byFlightNumber(a, b) {
       if (a.data.flight_number > b.data.flight_number) {

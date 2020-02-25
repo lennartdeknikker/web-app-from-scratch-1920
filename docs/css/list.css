@@ -19,6 +19,7 @@
   flex-direction: column;
   padding: 3em 1em;
   min-width: 18em;
+  box-sizing: border-box;
 }
 
 .list-title {
@@ -51,8 +52,9 @@
   text-decoration: none;
   color: var(--spacex-black);
   border: 1px dashed var(--spacex-silver);
-  padding: 1em;
+  padding: 1em 1em 1.5em 1em;
   height: 100%;
+  box-sizing: border-box;
 }
 
 .launch-link:hover {
@@ -80,5 +82,6 @@
 .test {
   align-self: center;
   width: 3em;
-  margin: 1em 0;
+  position: relative;
+  top: -1.5em;
 }
