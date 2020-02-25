@@ -357,6 +357,10 @@ li[class^="detail-level"] {
   margin-left: 4em;
 }
 
+.detail-data {
+  min-width: 15em;
+}
+
 .detail-data-link {
   color: white;
   cursor: pointer;
