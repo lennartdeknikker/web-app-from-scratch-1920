@@ -319,7 +319,7 @@ span[class^="detail-property"] {
   list-style-type: none;
   padding: 0 1em;
   height: 20em;
-  overflow: scroll;
+  overflow-y: scroll;
   box-sizing: border-box;
 }
 
