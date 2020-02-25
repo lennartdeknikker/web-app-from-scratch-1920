@@ -15,8 +15,10 @@ const Utilities = {
     return element;
   },
   appendElement(targetClass, child) {
-    const target = document.querySelector(targetClass);
-    target.appendChild(child);
+    if (document.querySelector(targetClass)) {
+      const target = document.querySelector(targetClass);
+      target.appendChild(child);
+    }
   },
   removeAll(selector) {
     document.querySelectorAll(selector).forEach((item) => item.remove());

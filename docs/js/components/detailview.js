@@ -43,6 +43,7 @@ const detailView = {
     detailView.currentPosition = newPosition;
 
     this.renderHtml(data, '.detailview');
+    document.querySelector('.detailview').scrollIntoView({ behavior: 'smooth', block: 'center' });
   },
   renderHtml(rawData, targetElement) {
     if (document.querySelector('.property-list')) document.querySelector('.property-list').remove();

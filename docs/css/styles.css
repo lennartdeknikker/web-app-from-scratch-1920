@@ -283,7 +283,7 @@ p {
   color: white;
   padding: 1em;
   animation: 0.3s grow 1;
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 
   max-width: var(--max-width);
 }
