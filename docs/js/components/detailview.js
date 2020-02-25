@@ -5,26 +5,48 @@ import Utilities from '../utilities.js';
 const detailView = {
   currentPosition: 0,
   init(flightNumber, data) {
+    // get clicked item
     const selectedItem = document.querySelector(`.flight-${flightNumber}`);
-    const launchList = document.querySelector('.launches-list');
+    // get launchlist element
+    let launchList = document.querySelector('.launches-list');
+    // get position of clicked item in launch list and add 1.
     let newPosition = Array.prototype.indexOf.call(launchList.children, selectedItem) + 1;
 
+    // rounds the position on a multiple of 4.
     function roundTo4() {
-      if (newPosition === 0 || newPosition % 4 !== 0) {
+      if (newPosition % 4 !== 0) {
         newPosition += 1;
         roundTo4(newPosition);
       }
     }
 
-    roundTo4(newPosition);
+    if (window.innerWidth > 580) {
+      roundTo4(newPosition);
+    }
+    // if the multiple of 4 exceeds the amount of childs, set it to the amount of childs minus one.
     if (newPosition > launchList.childElementCount) {
       newPosition = launchList.childElementCount - 1;
     }
 
+    // render the element directly after the clicked element on mobile devices.
+    if (window.innerWidth < 580) {
+      launchList = document.querySelector('.launches-list');
+      const detailview = document.querySelector('.detailview');
+      const detailviewPosition = Array.prototype.indexOf.call(launchList.children, detailview);
+      const potentialNewPosition = Array.prototype.indexOf.call(launchList.children, selectedItem);
+      if (potentialNewPosition > detailviewPosition) {
+        newPosition = Array.prototype.indexOf.call(launchList.children, selectedItem);
+      } else {
+        newPosition = Array.prototype.indexOf.call(launchList.children, selectedItem) + 1;
+      }
+    }
     const targetElement = document.querySelectorAll('.launches-list-item')[newPosition - 1];
+    // create the detailview element.
     const detailviewTitle = Utilities.createNewElement('h2', 'detailview-title', data.mission_name);
 
+    // check if the detail view is already in the right position.
     if (newPosition !== detailView.currentPosition) {
+      // if not, remove the old one and append a new one.
       Utilities.removeAll('.detailview');
       const newDiv = Utilities.createNewElement(
         'div',
@@ -36,14 +58,17 @@ const detailView = {
         newDiv,
       );
     } else {
+      // else just change the title.
       if (document.querySelector('.detailview-title')) document.querySelector('.detailview-title').remove();
       if (document.querySelector('.detailview')) document.querySelector('.detailview').appendChild(detailviewTitle);
     }
-
+    // save the current position in a variable
     detailView.currentPosition = newPosition;
+    console.log(this.currentPosition);
+    console.log(newPosition);
 
     this.renderHtml(data, '.detailview');
-    document.querySelector('.detailview').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // document.querySelector('.detailview').scrollIntoView({ behavior: 'smooth', block: 'center' });
   },
   renderHtml(rawData, targetElement) {
     if (document.querySelector('.property-list')) document.querySelector('.property-list').remove();
