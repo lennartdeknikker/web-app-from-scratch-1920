@@ -3,7 +3,6 @@
 import Utilities from '../utilities.js';
 
 const detailView = {
-  currentPosition: 0,
   init(flightNumber, data) {
     // get clicked item
     const selectedItem = document.querySelector(`.flight-${flightNumber}`);
@@ -44,9 +43,6 @@ const detailView = {
     // create the detailview element.
     const detailviewTitle = Utilities.createNewElement('h2', 'detailview-title', data.mission_name);
 
-    // check if the detail view is already in the right position.
-    if (newPosition !== detailView.currentPosition) {
-      // if not, remove the old one and append a new one.
       Utilities.removeAll('.detailview');
       const newDiv = Utilities.createNewElement(
         'div',
@@ -57,15 +53,6 @@ const detailView = {
         'afterend',
         newDiv,
       );
-    } else {
-      // else just change the title.
-      if (document.querySelector('.detailview-title')) document.querySelector('.detailview-title').remove();
-      if (document.querySelector('.detailview')) document.querySelector('.detailview').appendChild(detailviewTitle);
-    }
-    // save the current position in a variable
-    detailView.currentPosition = newPosition;
-    console.log(this.currentPosition);
-    console.log(newPosition);
 
     this.renderHtml(data, '.detailview');
     // document.querySelector('.detailview').scrollIntoView({ behavior: 'smooth', block: 'center' });
