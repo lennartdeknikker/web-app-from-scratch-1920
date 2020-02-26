@@ -3,7 +3,6 @@ import Countdown from './components/countdown.js';
 import Data from './data.js';
 import List from './components/list.js';
 import Detailview from './components/detailview.js';
-import Utilities from './utilities.js';
 import Loader from './components/loader.js';
 
 const Render = {

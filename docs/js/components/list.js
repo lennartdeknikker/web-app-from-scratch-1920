@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import Utilities from '../utilities.js';
 
 const List = {
@@ -13,8 +12,7 @@ const List = {
     const newList = Utilities.createNewElement('ol', 'launches-list');
     for (let i = 0; i < data.length; i += 1) {
       const newUl = Utilities.createNewElement('ul', 'launches-list-item-details-list');
-      // eslint-disable-next-line no-restricted-syntax
-      for (const element in data[i].data) {
+      Object.keys(data[i].data).forEach((element) => {
         if (data[i].data[element] !== null) {
           const newDetailLiTitle = Utilities.createNewElement(
             'span',
@@ -28,7 +26,7 @@ const List = {
           );
           newUl.appendChild(newDetailLi);
         }
-      }
+      });
       const newA = Utilities.createNewElement('a', 'launch-link');
       newA.href = `/#/${identifier}/${data[i].data.flight_number}`;
       const newLi = Utilities.createNewElement(

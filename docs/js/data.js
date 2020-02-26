@@ -1,6 +1,5 @@
 import Api from './api.js';
 import Utilities from './utilities.js';
-import detailView from './components/detailview.js';
 
 const Data = {
   async banner() {
@@ -39,14 +38,7 @@ const Data = {
       },
     }));
 
-    function byFlightNumber(a, b) {
-      if (a.data.flight_number > b.data.flight_number) {
-        return -1;
-      } return 1;
-    }
-
-    parsedData.sort(byFlightNumber);
-
+    parsedData.sort((a, b) => (b.data.flight_number - a.data.flight_number));
     return parsedData;
   },
   async detailView(selector) {

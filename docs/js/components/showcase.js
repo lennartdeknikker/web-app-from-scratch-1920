@@ -3,7 +3,7 @@ import Utilities from '../utilities.js';
 const Showcase = {
   async init(type, data) {
     this.changeTitle(type);
-    // if (data.imageUrl) this.addPatchImage(data.imageUrl);
+    if (data.imageUrl) this.addPatchImage(data.imageUrl);
     if (data.details) this.addDetails(data.details);
     if (data.videoLink) this.addVideoLink(data.videoLink);
     if (data.launchDate) this.addLaunchDate(data.launchDate);

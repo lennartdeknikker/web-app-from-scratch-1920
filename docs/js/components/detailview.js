@@ -1,8 +1,7 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
 import Utilities from '../utilities.js';
 
 const detailView = {
+  currentPosition: 0,
   init(flightNumber, data) {
     // get clicked item
     const selectedItem = document.querySelector(`.flight-${flightNumber}`);
@@ -12,17 +11,23 @@ const detailView = {
     let newPosition = Array.prototype.indexOf.call(launchList.children, selectedItem) + 1;
 
     // rounds the position on a multiple of 4.
-    function roundTo4() {
-      if (newPosition % 4 !== 0) {
+    function rounder(count) {
+      if (newPosition % count !== 0) {
         newPosition += 1;
-        roundTo4(newPosition);
+        rounder(count);
       }
     }
 
-    if (window.innerWidth > 580) {
-      roundTo4(newPosition);
+    if (window.innerWidth > 1110) {
+      rounder(4);
+    } else if (window.innerWidth > 840) {
+      rounder(3);
+    } else if (window.innerWidth > 570) {
+      rounder(2);
     }
-    // if the multiple of 4 exceeds the amount of childs, set it to the amount of childs minus one.
+
+    // if the multiple of 4 exceeds the total amount of childs,
+    // set it to the total amount of childs minus one.
     if (newPosition > launchList.childElementCount) {
       newPosition = launchList.childElementCount - 1;
     }
@@ -30,38 +35,59 @@ const detailView = {
     // render the element directly after the clicked element on mobile devices.
     if (window.innerWidth < 580) {
       launchList = document.querySelector('.launches-list');
+
       const detailview = document.querySelector('.detailview');
       const detailviewPosition = Array.prototype.indexOf.call(launchList.children, detailview);
       const potentialNewPosition = Array.prototype.indexOf.call(launchList.children, selectedItem);
-      if (potentialNewPosition > detailviewPosition) {
-        newPosition = Array.prototype.indexOf.call(launchList.children, selectedItem);
+
+      // subtract 1 when the detailview element needs not to be counted.
+      if (potentialNewPosition > detailviewPosition && document.querySelector('.detailview')) {
+        newPosition = Array.prototype.indexOf.call(launchList.children, selectedItem) - 1;
       } else {
-        newPosition = Array.prototype.indexOf.call(launchList.children, selectedItem) + 1;
+        newPosition = Array.prototype.indexOf.call(launchList.children, selectedItem);
       }
+      // add 1 to render the element after the clicked element.
+      newPosition += 1;
     }
+
+    // get the adjacent element for the detail view.
     const targetElement = document.querySelectorAll('.launches-list-item')[newPosition - 1];
-    // create the detailview element.
+    // create a title element for the detail view.
     const detailviewTitle = Utilities.createNewElement('h2', 'detailview-title', data.mission_name);
 
+    // if the detail view needs to move:
+    if (newPosition !== this.currentPosition) {
+      // remove the old detail view,
       Utilities.removeAll('.detailview');
+      // create a new detail view element,
       const newDiv = Utilities.createNewElement(
         'div',
         'detailview',
       );
+      // append the title,
       newDiv.appendChild(detailviewTitle);
+      // and insert the element.
       targetElement.insertAdjacentElement(
         'afterend',
         newDiv,
       );
+    } else {
+      // else, just change the title
+      document.querySelector('.detailview-title').remove();
+      document.querySelector('.detailview').appendChild(detailviewTitle);
+    }
 
+    // render the detail view html with the data for selected item.
     this.renderHtml(data, '.detailview');
-    // document.querySelector('.detailview').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    this.currentPosition = newPosition;
   },
   renderHtml(rawData, targetElement) {
+    // remove the old property list if there is one.
     if (document.querySelector('.property-list')) document.querySelector('.property-list').remove();
-    console.log(rawData);
+
+    // adds data to a given list element and adds classes based on the list level.
     function addDataToList(data, list, startLevel) {
-      for (const property in data) {
+      Object.keys(data).forEach((property) => {
         if (data[property] !== null && typeof data[property] !== 'object') {
           const propertySpan = Utilities.createNewElement(
             'span',
@@ -101,13 +127,17 @@ const detailView = {
           addDataToList(data[property], newSubUl, startLevel + 1);
           list.appendChild(newSubUl);
         }
-      }
+      });
     }
+
+    // create a new list element and add all data to it.
     const newUl = Utilities.createNewElement('ul', 'property-list');
     addDataToList(rawData, newUl, 1);
 
+    // append the element to the targeted element.
     Utilities.appendElement(targetElement, newUl);
 
+    // remove any empty lists from the DOM.
     function removeEmptyUls() {
       const sublistTitles = document.querySelectorAll('.sub-list-title');
       sublistTitles.forEach((title) => {

@@ -1,4 +1,3 @@
-/* eslint-disable prefer-promise-reject-errors */
 const Api = {
   async get(data) {
     const endpoint = 'https://api.spacexdata.com/v3/';
@@ -8,18 +7,17 @@ const Api = {
     };
 
     // Error handling as learned from https://css-tricks.com/using-fetch/
-
     function handleJSONResponse(response) {
       return response.json()
         .then((json) => {
           if (response.ok) {
             return json;
           }
-          return Promise.reject({
+          return Promise.reject(new Error({
             ...json,
             status: response.status,
             statusText: response.statusText,
-          });
+          }));
         });
     }
 
@@ -29,11 +27,11 @@ const Api = {
           if (response.ok) {
             return text;
           }
-          return Promise.reject({
+          return Promise.reject(new Error({
             status: response.status,
             statusText: response.statusText,
             err: text,
-          });
+          }));
         });
     }
 
