@@ -79,9 +79,18 @@
   color: var(--spacex-blue);
 }
 
-.test {
+.icon {
   align-self: center;
   width: 3em;
   position: relative;
   top: -1.5em;
+}
+
+.selected a {
+  background-color: var(--spacex-silver);
+  cursor: default;
+}
+
+.selected a:hover {
+  background-color: var(--spacex-silver);
 }

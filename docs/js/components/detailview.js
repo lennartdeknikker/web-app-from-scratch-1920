@@ -10,7 +10,7 @@ const detailView = {
     // get position of clicked item in launch list and add 1.
     let newPosition = Array.prototype.indexOf.call(launchList.children, selectedItem) + 1;
 
-    // rounds the position on a multiple of 4.
+    // rounds the position on the amount of items in a row, depending on screen size.
     function rounder(count) {
       if (newPosition % count !== 0) {
         newPosition += 1;
@@ -71,8 +71,9 @@ const detailView = {
         'afterend',
         newDiv,
       );
-    } else {
-      // else, just change the title
+    } else
+    // else, just change the title
+    if (document.querySelector('.detailview-title') && document.querySelector('.detailview')) {
       document.querySelector('.detailview-title').remove();
       document.querySelector('.detailview').appendChild(detailviewTitle);
     }

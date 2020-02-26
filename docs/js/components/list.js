@@ -39,7 +39,7 @@ const List = {
       if (data[i].links.Patch && identifier === 'past') {
         const newLink = Utilities.createNewElement(
           'img',
-          'test',
+          'icon',
         );
         newLink.src = data[i].links.Patch;
         newLi.appendChild(newLink);

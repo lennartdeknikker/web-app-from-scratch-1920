@@ -27,9 +27,17 @@ const Routes = {
       Utilities.removeAll('.launches-list');
 
       Render.showcase('latest');
-      await Render.list('past').then(() => Render.detailView(flightnumber));
+      await Render.list('past').then(() => {
+        Render.detailView(flightnumber);
+        if (document.querySelector('.selected')) document.querySelector('.selected').classList.remove('selected');
+        document.querySelector(`.flight-${flightnumber}`).classList.add('selected');
+      });
       Render.banner();
-    } else Render.detailView(flightnumber);
+    } else {
+      Render.detailView(flightnumber);
+      if (document.querySelector('.selected')) document.querySelector('.selected').classList.remove('selected');
+      document.querySelector(`.flight-${flightnumber}`).classList.add('selected');
+    }
   },
   '/upcoming/:flightnumber': async function (flightnumber) {
     if (!document.querySelector('.dynamic-content-showcase')) {
@@ -38,9 +46,17 @@ const Routes = {
       Utilities.removeAll('.launches-list');
 
       Render.showcase('next');
-      await Render.list('upcoming').then(() => Render.detailView(flightnumber));
+      await Render.list('upcoming').then(() => {
+        Render.detailView(flightnumber);
+        if (document.querySelector('.selected')) document.querySelector('.selected').classList.remove('selected');
+        document.querySelector(`.flight-${flightnumber}`).classList.add('selected');
+      });
       Render.banner();
-    } else Render.detailView(flightnumber);
+    } else {
+      Render.detailView(flightnumber);
+      if (document.querySelector('.selected')) document.querySelector('.selected').classList.remove('selected');
+      document.querySelector(`.flight-${flightnumber}`).classList.add('selected');
+    }
   },
 };
 
