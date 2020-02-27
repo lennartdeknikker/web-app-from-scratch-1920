@@ -22,8 +22,9 @@ That's it. You don't need to get an API key or install any dependencies. Happy c
 This application features:
 * [x] A banner image showing a picture of the latest launch
 * [x] An element showcasing details on the next launch with a countdown timer. 
-* [ ] Toggling between past and future launches.
-* [ ] A list with detailed information on past and future launches.
+* [x] Toggling between past and future launches.
+* [x] A list with detailed information on past and future launches.
+* [ ] Search input to filter on launch data.
 
 ## API
 This application uses the latest version of the SpaceX API.
