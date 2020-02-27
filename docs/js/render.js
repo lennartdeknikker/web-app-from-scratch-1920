@@ -6,7 +6,7 @@ import Detailview from './components/detailview.js';
 import Loader from './components/loader.js';
 
 const Render = {
-// function to obtain the banner image from the latest launch data.
+  // function to obtain the banner image from the latest launch data.
   async banner() {
     await Data.banner().then(
       (data) => {
@@ -14,6 +14,7 @@ const Render = {
       },
     );
   },
+  // renders the showcase element.
   async showcase(type) {
     Loader.initOn('.showcase-image-titles-container');
     await Data.showcase(type).then((data) => {
@@ -22,7 +23,7 @@ const Render = {
       Countdown.init(data.launchDateRaw);
     });
   },
-  // FUNCTION TO OBTAIN DATA & ADD THAT TO THE DOM
+  // renders the list and adds it to the DOM.
   async list(identifier) {
     Loader.initOn('.list-view');
     await Data.list(identifier).then(
@@ -32,6 +33,7 @@ const Render = {
       },
     );
   },
+  // renders the detail view.
   async detailView(flightNumber) {
     if (document.querySelector('.detailview')) {
       if (document.querySelector('.property-list')) {

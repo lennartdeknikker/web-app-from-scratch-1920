@@ -2,11 +2,13 @@ import Api from './api.js';
 import Utilities from './utilities.js';
 
 const Data = {
+  // obtains the necessary data to render the banner.
   async banner() {
     const data = await Api.get('launches/latest');
-    // returns random photo of the last launch.
+    // returns a random photo of the last launch.
     return data.links.flickr_images[Math.floor(Math.random() * data.links.flickr_images.length)];
   },
+  // obtains data for the showcase element.
   async showcase(type) {
     const data = await Api.get(`launches/${type}`);
     return ({
@@ -21,6 +23,7 @@ const Data = {
       videoLink: data.links.video_link,
     });
   },
+  // obtains and formats data for the listing.
   async list(selector) {
     const data = await Api.get(`launches/${selector}`);
     const parsedData = data.map((element) => ({
@@ -37,10 +40,11 @@ const Data = {
         launch_date: Utilities.normalizeDate(element.launch_date_unix),
       },
     }));
-
+    // sorts the data based on flight number.
     parsedData.sort((a, b) => (b.data.flight_number - a.data.flight_number));
     return parsedData;
   },
+  // obtains data for the detail view.
   async detailView(selector) {
     return Api.get(`launches/${selector}`);
   },

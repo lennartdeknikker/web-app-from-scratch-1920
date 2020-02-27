@@ -1,4 +1,5 @@
 const Api = {
+  // function to fetch data from the spacex api.
   async get(data) {
     const endpoint = 'https://api.spacexdata.com/v3/';
     const requestOptions = {

@@ -14,10 +14,12 @@ const List = {
       const newUl = Utilities.createNewElement('ul', 'launches-list-item-details-list');
       Object.keys(data[i].data).forEach((element) => {
         if (data[i].data[element] !== null) {
+          const newString = Utilities.replace(element, '_', ' ');
           const newDetailLiTitle = Utilities.createNewElement(
             'span',
             'details-list-title',
-            `${Utilities.capitalize(element.replace('_', ' '))}: `,
+            // `${Utilities.capitalize(element.replace('_', ' '))}: `,
+            `${Utilities.capitalize(newString)}: `,
           );
           const newDetailLi = Utilities.createNewElement(
             'li', 'launches-list-item-details-list-item',
