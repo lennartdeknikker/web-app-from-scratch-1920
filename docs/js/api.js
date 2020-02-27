@@ -1,6 +1,7 @@
 const Api = {
   // function to fetch data from the spacex api.
-  async get(data) {
+  // 'launches/latest'
+  async fetch(data) {
     const endpoint = 'https://api.spacexdata.com/v3/';
     const requestOptions = {
       method: 'GET',
@@ -49,6 +50,15 @@ const Api = {
     return fetch(`${endpoint + data}`, requestOptions)
       .then(handleResponse)
       .catch((error) => console.log(error));
+  },
+  // check for data in localStorage and fetch if it's not there.
+  async get(address) {
+    if (!sessionStorage.getItem(address)) {
+      const data = await Api.fetch(`launches/${address}`);
+      sessionStorage.setItem(address, JSON.stringify(data));
+      console.log('check');
+    }
+    return JSON.parse(sessionStorage.getItem(address));
   },
 };
 

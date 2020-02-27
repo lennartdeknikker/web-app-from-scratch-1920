@@ -25,7 +25,6 @@ const Showcase = {
     document.querySelector('.showcase-title').innerText = newTitle;
   },
   addPatchImage(imageUrl) {
-    console.log(imageUrl);
     const newImage = Utilities.createNewElement('img', 'dynamic-content-showcase');
     newImage.src = imageUrl;
     Utilities.appendElement('.showcase-image-container', newImage);

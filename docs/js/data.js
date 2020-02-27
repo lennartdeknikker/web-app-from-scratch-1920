@@ -4,13 +4,14 @@ import Utilities from './utilities.js';
 const Data = {
   // obtains the necessary data to render the banner.
   async banner() {
-    const data = await Api.get('launches/latest');
-    // returns a random photo of the last launch.
+    const data = await Api.get('latest');
     return data.links.flickr_images[Math.floor(Math.random() * data.links.flickr_images.length)];
+
+    // returns a random photo of the last launch.
   },
   // obtains data for the showcase element.
   async showcase(type) {
-    const data = await Api.get(`launches/${type}`);
+    const data = await Api.get(type);
     return ({
       imageUrl: data.links.mission_patch_small,
       missionTitle: data.mission_name,
@@ -25,7 +26,7 @@ const Data = {
   },
   // obtains and formats data for the listing.
   async list(selector) {
-    const data = await Api.get(`launches/${selector}`);
+    const data = await Api.get(selector);
     const parsedData = data.map((element) => ({
       links: {
         photos: element.links.flickr_images,
@@ -46,7 +47,7 @@ const Data = {
   },
   // obtains data for the detail view.
   async detailView(selector) {
-    return Api.get(`launches/${selector}`);
+    return Api.get(selector);
   },
 };
 export default Data;
