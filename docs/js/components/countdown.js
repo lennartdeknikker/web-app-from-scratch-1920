@@ -16,8 +16,6 @@ const Countdown = {
         document.querySelector('.launch-minutes').innerText = '';
         document.querySelector('.launch-seconds').innerText = '';
 
-        sessionStorage.clear();
-        window.location.reload();
         clearInterval(Countdown.timer);
       } else {
         let seconds = Math.floor(difference / 1000);

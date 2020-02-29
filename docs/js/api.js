@@ -46,7 +46,7 @@ const Api = {
       }
       throw new Error(`Sorry, content-type ${contentType} is not supported.`);
     }
-
+    console.log(`${endpoint + data}`)
     return fetch(`${endpoint + data}`, requestOptions)
       .then(handleResponse)
       .catch((error) => console.log(error));
