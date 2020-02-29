@@ -1,56 +1,68 @@
 const Utilities = {
-  // sets the active class to passed node.
-  changeActiveElement(selector) {
-    document.querySelector('.active').classList.remove('active');
-    document.querySelector(selector).classList.add('active');
-  },
-  // capitalizes the first letter of a given string.
-  capitalize: (string) => string.charAt(0).toUpperCase() + string.slice(1),
-  createNewElement(type, className, text, child) {
-    const element = document.createElement(type);
 
-    if (className) element.className = className;
-    if (child) element.appendChild(child);
+  setActiveButton(button) {
+    const currentActiveButton = document.querySelector('.active')
+    currentActiveButton.classList.remove('active');
+
+    const newActiveButton = document.querySelector(button)
+    newActiveButton.classList.add('active');
+  },
+
+  capitalize: (string) => string.charAt(0).toUpperCase() + string.slice(1),
+
+  createNewElement(type, className, text, child) {
+    const newElement = document.createElement(type);
+
+    if (className) newElement.className = className;
+    if (child) newElement.appendChild(child);
     if (text) {
       const textNode = document.createTextNode(text);
-      element.appendChild(textNode);
+      newElement.appendChild(textNode);
     }
 
-    return element;
+    return newElement;
   },
-  // appends an element to the DOM.
+
   appendElement(targetClass, child) {
-    if (document.querySelector(targetClass)) {
-      const target = document.querySelector(targetClass);
-      target.appendChild(child);
-    }
+    const target = document.querySelector(targetClass);
+    if (target) target.appendChild(child);
   },
-  // removes all nodes from the DOM for a given selector.
-  removeAll(selector) {
-    document.querySelectorAll(selector).forEach((item) => item.remove());
+
+  removeAll(elementSelector) {
+    const elementList = document.querySelectorAll(elementSelector)
+    elementList.forEach((element) => element.remove());
   },
-  // parses unixDate to a readable format.
+
   normalizeDate(unixDate) {
+    const addPad = (value) => String(value).padStart(2, '0');
     const date = new Date(unixDate * 1000);
-    function addPad(value) {
-      return String(value).padStart(2, '0');
-    }
-    return `${addPad(date.getDate())}/${addPad(date.getMonth() + 1)}/${addPad(date.getFullYear())} 
-  ${addPad(date.getHours())}:${addPad(date.getMinutes())}`;
+
+    const day = addPad(date.getDate());
+    const month = addPad(date.getMonth() + 1);
+    const year = addPad(date.getFullYear());
+    const hours = addPad(date.getHours())
+    const minutes = addPad(date.getMinutes())
+
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
   },
-  // checks if the given string contains a link.
+
   checkForLink(text) {
     return String(text).includes('http');
   },
-  // uses Array.reduce to replace letters in a string.
+
+  changeCSSProperty(property, value) {
+    document.documentElement.style.setProperty(property, value);
+  },
+
+  // reduce experiment
   replace(string, letter, replacement) {
     function replaceLetter(acc, cur) {
-      if (cur === letter) { return acc + replacement; }
-      return acc + cur;
+      return cur === letter ? acc + replacement : acc + cur;
     }
     return Array.from(string).reduce(replaceLetter);
   },
-  // uses Array.map to replace letters in a string.
+
+  // map experiment
   replace2(string, letter, replacement) {
     function replaceLetter(cur) {
       return cur === letter ? replacement : cur;

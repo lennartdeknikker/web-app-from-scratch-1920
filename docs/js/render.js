@@ -4,52 +4,55 @@ import Data from './data.js';
 import List from './components/list.js';
 import Detailview from './components/detailview.js';
 import Loader from './components/loader.js';
+import Utilities from './utilities.js';
 
 const Render = {
-  // function to obtain the banner image from the latest launch data.
+
   async banner() {
     await Data.banner().then(
-      (data) => {
-        document.documentElement.style.setProperty('--banner-background', `url('${data}')`);
-      },
-    );
+      (bannerImage) => {
+        const BackgroundProperty = '--banner-background'
+        const value = `url('${bannerImage}')`
+        Utilities.changeCSSProperty(BackgroundProperty, value)
+      });
   },
-  // renders the showcase element.
+
   async showcase(type) {
     Loader.initOn('.showcase-image-titles-container');
-    await Data.showcase(type).then((data) => {
-      Loader.removeFrom('.showcase-image-titles-container');
-      Showcase.init(type, data);
-      Countdown.init(data.launchDateRaw);
-    });
+    await Data.showcase(type).then(
+      (data) => {
+        Loader.removeFrom('.showcase-image-titles-container');
+        Showcase.init(data, type);
+        Countdown.init(data.launchDateRaw);
+      });
   },
-  // renders the list and adds it to the DOM.
-  async list(identifier) {
+
+  async list(type) {
     Loader.initOn('.list-view');
-    await Data.list(identifier).then(
+    await Data.list(type).then(
       (data) => {
         Loader.removeFrom('.list-view');
-        List.init(data, identifier);
-      },
-    );
+        List.init(data, type);
+      });
   },
-  // renders the detail view.
+
   async detailView(flightNumber) {
-    if (document.querySelector('.detailview')) {
-      if (document.querySelector('.property-list')) {
-        document.querySelector('.property-list').remove();
-      }
+    const detailView = document.querySelector('.detailview')
+    const propertyList = document.querySelector('.property-list')
+
+    if (detailView) {
+      if (propertyList) propertyList.remove();
       Loader.initOn('.detailview');
     }
+
     await Data.detailView(flightNumber).then(
       (data) => {
-        if (document.querySelector('.detailview') && document.querySelector('.detailview').querySelector('.loader-image')) {
-          Loader.removeFrom('.detailview');
-        }
+        Loader.removeFrom('.detailview');
         Detailview.init(flightNumber, data);
       },
     );
   },
+
 };
 
 export default Render;
