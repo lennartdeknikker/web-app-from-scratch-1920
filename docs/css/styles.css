@@ -10,7 +10,7 @@
   --max-width: 80rem;
   --line-height: 1.4rem;
 
-  --banner-background: url("../img/missions-header.jpg");
+  --banner-background: url("../img/missions-header.jpg") !important;
 }
 
 body {
@@ -292,11 +292,11 @@ p {
 @keyframes grow {
   from {
     min-height: 0;
-    height: 0
+    height: 0;
   }
   to {
     min-height: 22em;
-    height: 22em
+    height: 22em;
   }
 }
 

@@ -5,6 +5,7 @@ const Data = {
 
   async banner() {
     const data = await Api.get('latest');
+    console.log(data)
     const randomImageIndex = Math.floor(Math.random() * data.links.flickr_images.length)
     return data.links.flickr_images[randomImageIndex];
   },
